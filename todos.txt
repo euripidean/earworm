@@ -1,0 +1,4 @@
+ - Add error messages to all form pages
+ - complete detail pages
+ - user auth routes
+ 
