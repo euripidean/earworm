@@ -1,0 +1,17 @@
+{% if form.errors %}
+<ul class="errorlist">
+{% for field in form %}
+    {% for error in field.errors %}
+        <li>{{ error }}</li>
+    {% endfor %}
+{% endfor %}
+</ul>
+{% endif %}
+
+{{ form.name.label }}
+{{ form.name }}
+{{ form.photo_url.label }}
+{{ form.photo_url }}
+{{ form.bio.label }}
+{{ form.bio(cols="35", rows="20") }}
+{{ form.submit }}

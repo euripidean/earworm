@@ -18,7 +18,7 @@ def signup():
         db.session.commit()
         flash('Account created successfully!', 'success')
         return redirect(url_for('auth.login'))
-    return render_template('signup.html', form=form)
+    return render_template('Users/signup.html', form=form)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -27,7 +27,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         login_user(user, remember=True)
         return redirect(url_for('main.homepage'))
-    return render_template('login.html', form=form)
+    return render_template('Users/login.html', form=form)
 
 @auth.route('/logout')
 @login_required

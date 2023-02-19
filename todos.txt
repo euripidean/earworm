@@ -1,4 +1,10 @@
  - Add error messages to all form pages
  - complete detail pages
- - user auth routes
- 
+ DONE - user auth routes
+ - All Earworms: all reviews, albums, artists (with associated actions) and other users (whose profiles are public).
+ - Add Profile page (with edit profile section)
+ - Add separate edit routes so unlogged in folks can read reviews.
+ - Favourite artist option (check the Book Auth lab)
+ - Better validation on reviews if possible
+ - Styling
+ - Research how to style the form elements from this SO: https://stackoverflow.com/questions/34738331/using-flask-wtforms-how-do-i-style-my-form-section-of-the-html

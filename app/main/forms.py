@@ -3,6 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, DateField, SelectField, SubmitField, FloatField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired, Length, URL, ValidationError
+from wtforms.fields.html5 import DateField
 from wtforms.widgets import TextArea
 
 from app.models import Artist, Album, Review, Genre
@@ -79,3 +80,4 @@ class SearchForm(FlaskForm):
         """Validate that the search term is at least 3 characters."""
         if len(search.data) < 3:
             raise ValidationError('Search term must be at least 3 characters.')
+

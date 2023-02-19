@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>All Earworms</h1>
+
+<div class="artist-list">
+<h2>Artists</h2>
+{% for artist in artists %}
+<h5><a href="{{ url_for('main.artist_detail', artist_id=artist.id) }}">{{ artist.name }}</a></h5>
+<img src="{{ artist.photo_url }}" alt="{{ artist.name }}"/>
+<p> {{artist.bio }}</p>
+{% endfor %}
+</div>
+
+<div class="review-list">
+    <h2>Reviews</h2>
+{% for review in reviews %}
+<h5><a href="{{ url_for('main.review_detail', review_id=review.id) }}">{{ review.summary }}</a></h5>
+<p> {{review.content }}</p>
+{% endfor %}
+</div>
+
+<div class="album-list">
+    <h2>Albums</h2>
+{% for album in albums %}
+<h5><a href="{{ url_for('main.album_detail', album_id=album.id) }}">{{ album.title }}</a></h5>
+<img src="{{ album.cover_url }}" alt="{{ album.title }}"/>
+<p> {{album.release_date }}</p>
+{% endfor %}
+</div>
+
+
+{% endblock %}

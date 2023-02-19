@@ -1,0 +1,82 @@
+/* colours:
+#f0941c - main colour
+#070707 - background
+#52504d - Box Highlight
+#9d9a94 - Headers
+#e8e4db - Text
+*/
+
+
+
+
+body, html {
+    height: 100%;
+    margin: 0 auto;
+    background-color: #070707;
+    color: #e8e4db;
+    font-family: 'Roboto', sans-serif;
+    font-size: 48px;
+}
+
+nav, nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style: none;
+    background-color: #f0941c;
+}
+
+nav li {
+    padding: 10px;
+    font-size: 24px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #070707;
+}
+
+.nav-logo {
+    padding-left: 1%;
+    margin-top: 3%;
+}
+
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 80px;
+}
+
+h1 {
+    color: #f0941c;
+}
+
+h2 {
+    font-size: 0.75em;
+    color: #9d9a94;
+}
+
+h5 {
+    font-weight: 100;
+}
+
+p {
+    font-size: 0.5em;
+    font-weight: lighter;
+}
+
+footer {
+    background-color: #f0941c;
+    color: #070707;
+    padding: 7%;
+    text-align: center;
+    font-weight: bold;
+}
+
+#log-in-status {
+    position: absolute;
+    top: -5px;
+    right: 10px;
+    margin-bottom: 10px;
+    color: #070707;
+}

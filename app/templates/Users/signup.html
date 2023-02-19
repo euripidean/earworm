@@ -4,24 +4,30 @@
 <form action="/signup" method="POST">
     {{ form.csrf_token }}
     <fieldset>
+
+        {% if form.errors %}
+            <ul class="errorlist">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            </ul>
+        {% endif %}
+
         {{ form.username.label }}
         {{ form.username }}
-        <ul>
-        {% for error in form.username.errors %}
-            <li class="error">{{ error }}</li>
-        {% endfor %}
-        </ul>
+
 
         {{ form.password.label }}
         {{ form.password }}
-        <ul>
-        {% for error in form.password.errors %}
-            <li class="error">{{ error }}</li>
-        {% endfor %}
-        </ul>
+        
 
         {{ form.avatar_url.label }}
         {{ form.avatar_url }}
+
+        {{ form.public.label }}
+        {{ form.public }}
 
         {{ form.submit }}
     </fieldset>
