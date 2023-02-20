@@ -1,19 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Add Album</h1>
+<fieldset>
+    <legend>Add an Album</legend>
 <form action="{{url_for('main.add_album')}}" method="post">
     {{ form.csrf_token }}
-    {% if form.errors %}
-    <ul class="errorlist">
-    {% for field in form %}
-        {% for error in field.errors %}
-            <li>{{ error }}</li>
-        {% endfor %}
-    {% endfor %}
-    </ul>
-{% endif %}
-    <legend>Add an Album</legend>
-    <fieldset>
         {% include "Albums/album_form.html" %}
     </fieldset>
 {% endblock %}

@@ -1,8 +1,24 @@
-{% extends 'base.html' %}
+{% extends 'homebase.html' %}
 {% block content %}
+<div class="hero-image">
 <img src="/static/Images/logo.png" alt="Earworm">
+</div>
+<section class="intro">
 <p>Earworm is a music recommendation service that uses your listening history to recommend new music.</p>
 <h2>Sounds Good.</h2>
-<a class="signup" href="/signup">Join Us</a>
+</section>
+<div class="home-search">
+<input type="text" placeholder="Search for a song, artist, or album">
+<button type="submit" class="primary search"><i class="fa-solid fa-magnifying-glass">&nbsp;</i></button>
+</div>
+<section class="intro">
+<form action="{{ url_for('auth.login')}}">
+<button class="primary" type="submit">Sign In</button>
+</form>
+<p><em>Not part of the community yet?</em></p>
+<form action="{{ url_for('auth.signup')}}"></form>
+<button class="secondary" type="submit">Join Us</button>
+</form>
+</section>
 
 {% endblock %}

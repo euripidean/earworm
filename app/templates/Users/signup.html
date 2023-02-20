@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Sign Up</h1>
-<form action="/signup" method="POST">
+<form action="/signup" method="POST" class="users">
     {{ form.csrf_token }}
     <fieldset>
-
+        <legend>Sign Up</legend>
         {% if form.errors %}
             <ul class="errorlist">
             {% for field in form %}
@@ -15,21 +14,21 @@
             </ul>
         {% endif %}
 
-        {{ form.username.label }}
-        {{ form.username }}
+        {{ form.username.label (class_="label")}}
+        {{ form.username (class_="input")}}
 
 
-        {{ form.password.label }}
-        {{ form.password }}
+        {{ form.password.label (class_="label")}}
+        {{ form.password (class_="input")}}
         
 
-        {{ form.avatar_url.label }}
-        {{ form.avatar_url }}
+        {{ form.avatar_url.label (class_="label")}}
+        {{ form.avatar_url (class_="url")}}
 
-        {{ form.public.label }}
-        {{ form.public }}
+        {{ form.public.label (class_="label")}}
+        {{ form.public (class_="checkbox")}}
 
-        {{ form.submit }}
+        {{ form.submit (class_="primary")}}
     </fieldset>
 </form>
 

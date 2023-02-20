@@ -26,7 +26,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         login_user(user, remember=True)
-        return redirect(url_for('main.homepage'))
+        return redirect(url_for('main.all_earworms'))
     return render_template('Users/login.html', form=form)
 
 @auth.route('/logout')

@@ -7,4 +7,8 @@
  - Favourite artist option (check the Book Auth lab)
  - Better validation on reviews if possible
  - Styling
- - Research how to style the form elements from this SO: https://stackoverflow.com/questions/34738331/using-flask-wtforms-how-do-i-style-my-form-section-of-the-html
+ DONE - Research how to style the form elements from this SO: https://stackoverflow.com/questions/34738331/using-flask-wtforms-how-do-i-style-my-form-section-of-the-html
+ - Add legends to all forms
+ - Profile page: only logged in user can edit.
+ - Edit pages for reviews: only user who created it can edit.
+ - Add search bar and use that to populate album/artist etc?

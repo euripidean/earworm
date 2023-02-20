@@ -1,15 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Add your review</h1>
 <form action="{{url_for('main.create_review')}}" method="post">
     {{ form.csrf_token }}
-    <legend>Add a Review</legend>
-    {% for field, errors in form.errors.items() %}
-<div class="alert alert-error">
-    {{ form[field].label }}: {{ ', '.join(errors) }}
-</div>
-{% endfor %}
     <fieldset>
+        <legend>Add a Review</legend>
         {% include "Reviews/review_form.html" %}
     </fieldset>
 {% endblock %}
