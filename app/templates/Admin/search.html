@@ -1,5 +1,4 @@
-{% extends 'base.html' %}
-{% block content %}
-<h1>Search Results</h1>
-
-{% endblock %}
+<form class="home-search" action="{{url_for('main.search')}}" action="GET">
+    <input type="text" name="query" placeholder="Search for an artist, album or review">
+    <button type="submit" class="primary search"><i class="fa-solid fa-magnifying-glass">&nbsp;</i></button>
+</form>

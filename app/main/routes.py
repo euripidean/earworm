@@ -19,10 +19,17 @@ def homepage():
 
 @main.route('/search', methods=['GET', 'POST'])
 def search():
-    if request.method == 'POST':
-        search_term = request.form['search_term']
-        return redirect(url_for('main.search_results', search_term=search_term))
-    return render_template('Admin/search.html')
+    search_term = request.args.get('query')
+    print(search_term)
+    return redirect(url_for('main.search_results', search_term=search_term))
+
+@main.route('/search_results/<search_term>', methods=['GET', 'POST'])
+def search_results(search_term):
+    search_term = search_term
+    artist_results = Artist.query.filter(Artist.name.ilike(f'%{search_term}%')).all()
+    album_results = Album.query.filter(Album.title.ilike(f'%{search_term}%')).all()
+    review_results = Review.query.filter(Review.content.ilike(f'%{search_term}%')).all()
+    return render_template('Admin/search_results.html', artist_results=artist_results, album_results=album_results, review_results=review_results, search_term=search_term)
 
 @main.route('/about')
 def about():
@@ -34,9 +41,9 @@ def contact():
 
 @main.route('/all_earworms', methods=['GET', 'POST'])
 def all_earworms():
-    all_reviews = Review.query.all()
-    all_artists = Artist.query.all()
-    all_albums = Album.query.all()
+    all_reviews = Review.query.order_by(Review.date_created.desc()).all()
+    all_artists = Artist.query.order_by(Artist.name).all()
+    all_albums = Album.query.order_by(Album.title).all()
     return render_template('Admin/all_earworms.html', reviews=all_reviews, artists=all_artists, albums=all_albums)
 
 @main.route('/add_artist', methods=['GET', 'POST'])
@@ -71,6 +78,22 @@ def artist_detail(artist_id):
         return redirect(url_for('main.artist_detail', artist_id=artist.id))
     return render_template('Artists/artist_detail.html', artist=artist, form=form)
 
+@main.route('/artist/<artist_id>/edit', methods=['POST'])
+@login_required
+def edit_artist(artist_id):
+    artist = Artist.query.get(artist_id)
+    form = ArtistForm(obj=artist)
+
+    if form.validate_on_submit():
+        artist.name = form.name.data
+        artist.photo_url = form.photo_url.data
+        artist.bio = form.bio.data
+        db.session.commit()
+        
+        flash('Artist updated successfully!')
+        return redirect(url_for('main.artist_detail', artist_id=artist.id))
+    return render_template('Artists/artist_edit.html', artist=artist, form=form)
+
 @main.route('/add_album', methods=['GET', 'POST'])
 @login_required
 def add_album():
@@ -90,10 +113,15 @@ def add_album():
     return render_template('Albums/add_album.html', form=form)
 
 @main.route('/album/<album_id>', methods=['GET', 'POST'])
-@login_required
 def album_detail(album_id):
     album = Album.query.get(album_id)
     artist = Artist.query.get(album.artist)
+    return render_template('Albums/album_detail.html', album=album, artist=artist)
+
+@main.route('/album/<album_id>/edit', methods=['POST'])
+@login_required
+def edit_album(album_id):
+    album = Album.query.get(album_id)
     form = AlbumForm(obj=album)
 
     if form.validate_on_submit():
@@ -105,7 +133,7 @@ def album_detail(album_id):
         db.session.commit()
         flash('Album updated successfully!')
         return redirect(url_for('main.album_detail', album_id=album.id))
-    return render_template('Albums/album_detail.html', album=album, form=form, artist=artist)
+    return render_template('Albums/album_edit.html', album=album, form=form)
 
 @main.route('/create_review', methods=['GET', 'POST'])
 @login_required

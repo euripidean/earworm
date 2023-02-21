@@ -1,23 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
+{% if current_user.is_authenticated %}
+    <p>You are already logged in as <strong>{{ current_user.username }}</strong></p>
+    <form action="{{url_for('auth.logout')}}">
+        <button class="primary" type="submit">Log Out</button>
+    </form>
+{% else %}
 <form action="/login" method="POST">
     {{ form.csrf_token }}
-    {% if form.errors %}
-<ul class="errorlist">
-{% for field in form %}
-    {% for error in field.errors %}
-        <li>{{ error }}</li>
-    {% endfor %}
-{% endfor %}
-</ul>
-{% endif %}
     <fieldset>
         <legend>Sign In</legend>
+        {% if form.errors %}
+        <ul class="errorlist">
+        {% for field in form %}
+            {% for error in field.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+        {% endif %}
+        </ul>
         {{ form.username.label }}
         {{ form.username }}
         {{ form.password.label }}
         {{ form.password }} 
         {{ form.submit }}
+        <p class="sub">Don't have an account yet? <a href="/signup.html">Sign Up here</a>.</p>
     </fieldset>
 </form>
+{% endif %}
 {% endblock %}

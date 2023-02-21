@@ -4,21 +4,23 @@
 <img src="/static/Images/logo.png" alt="Earworm">
 </div>
 <section class="intro">
-<p>Earworm is a music recommendation service that uses your listening history to recommend new music.</p>
+<p>Earworm is a music recommendation service that uses your listening history to recommend new music.
+</p>
 <h2>Sounds Good.</h2>
 </section>
-<div class="home-search">
-<input type="text" placeholder="Search for a song, artist, or album">
-<button type="submit" class="primary search"><i class="fa-solid fa-magnifying-glass">&nbsp;</i></button>
-</div>
-<section class="intro">
+{% include 'Admin/search.html' %}
+<section class="user-actions">
+<div class="login">
 <form action="{{ url_for('auth.login')}}">
 <button class="primary" type="submit">Sign In</button>
 </form>
-<p><em>Not part of the community yet?</em></p>
+</div>
+<div class="signup">
 <form action="{{ url_for('auth.signup')}}"></form>
 <button class="secondary" type="submit">Join Us</button>
 </form>
+</div>
 </section>
+
 
 {% endblock %}

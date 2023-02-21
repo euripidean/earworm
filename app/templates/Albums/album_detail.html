@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>{{ album.title }}</h2>
-<p>{{ artist.name }}</p>
-<p>{{ album.year }}</p>
-<p>{{ album.genre }}</p>
-<img src="{{ album.cover_url}}"" alt="{{album.title}}" />
+<section class="album-detail">
+    <h2>{{album.title}}</h2>
+    <h3>{{artist.name}}</h3>
+    <img src="{{album.cover_url}}" alt="{{album.title}}">
+    <ul class="album-info">
+        <li>Genre: {{album.genre}}</li>
+        <li>Released: {{album.release_date.strftime('%Y')}}</li>
+    </ul>
+    <button class="primary smaller">Review</button>
+</section>
 
-
+    
 {% endblock %}

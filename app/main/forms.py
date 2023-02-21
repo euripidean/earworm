@@ -71,10 +71,10 @@ class ReviewForm(FlaskForm):
         if review:
             raise ValidationError('You have already reviewed this album.')
 
-class SearchForm(FlaskForm):
-    """Form for searching for an album, artist or other user."""
-    search = StringField('Search', validators=[DataRequired()])
-    submit = SubmitField('Search')
+# class SearchForm(FlaskForm):
+#     """Form for searching for an album, artist or other user."""
+#     search = StringField('Search', validators=[DataRequired()])
+#     submit = SubmitField('Search')
 
     def validate_search(self, search):
         """Validate that the search term is at least 3 characters."""

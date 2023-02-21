@@ -1,0 +1,3 @@
+<h5><a href="{{ url_for('main.album_detail', album_id=album.id) }}">{{ album.title }}</a></h5>
+<img src="{{ album.cover_url }}" alt="{{ album.title }}"/>
+<p> {{album.release_date }}</p>

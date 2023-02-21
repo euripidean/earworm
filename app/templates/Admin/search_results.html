@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'Admin/search.html' %}
+<h2 class="results-heading">Search Results</h2>
+<p class="seach-summary">Here are your results containing <strong>"{{ search_term }}".</strong></p>
+{% if artist_results %}
+<h2>Artists</h2>
+{% for artist in artist_results %}
+<a href="{{ url_for('main.artist_detail', artist_id=artist.id) }}">{{ artist.name }}</a>
+{% endfor %}
+{% endif %}
+{% if album_results %}
+<h2>Albums</h2>
+{% for album in album_results %}
+<a href="{{ url_for('main.album_detail', album_id=album.id) }}">{{ album.title }}</a>
+{% endfor %}
+{% endif %}
+{% if review_results %}
+<h2>Reviews</h2>
+{% for review in review_results %}
+<a href="{{ url_for('main.review_detail', review_id=review.id) }}">{{ review.title }}</a>
+{% endfor %}
+{% endif %}
+{% endblock %}
