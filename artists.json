@@ -1,0 +1,20 @@
+[
+    {
+        "bio": "Nick Cave and the Bad Seeds are an Australian rock band formed in 1983 by vocalist Nick Cave, multi-instrumentalist Mick Harvey and guitarist-vocalist Blixa Bargeld.",
+        "id": 1,
+        "name": "Nick Cave and the Bad Seeds",
+        "photo_url": "https://cdns-images.dzcdn.net/images/artist/c81acb9b05e8b29b4699f2c2bd05213b/500x500.jpg"
+    },
+    {
+        "bio": "Bruce Frederick Joseph Springsteen is an American singer, songwriter, and musician. He has released 21 studio albums, most of which feature his backing band, the E Street Band.",
+        "id": 2,
+        "name": "Bruce Springsteen",
+        "photo_url": "https://www.thisdayinmusic.com/wp-content/uploads/1949/09/Bruce-Springsteen-GettyImages-75504097.webp"
+    },
+    {
+        "bio": "Simbiatu \"Simbi\" Abisola Abiola Ajikawo (born 23 February 1994), better known by her stage name Little Simz, is a British rapper, singer and actress.",
+        "id": 3,
+        "name": "Little Simz",
+        "photo_url": "https://media.pitchfork.com/photos/639780c076d8d727248c60d3/1:1/w_450%2Cc_limit/littlesimz.jpeg"
+    }
+]

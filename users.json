@@ -1,0 +1,16 @@
+[
+    {
+        "avatar_url": "https://ca.slack-edge.com/T029VH0R0BT-U03SQCKMB3R-4ca6abeea2b3-512",
+        "id": 1,
+        "password": "$2b$12$2hFRXxbYlUn8hArMCX8TV.OQxu63H9DX0BR/HC/xyuybxCjuG2lPG",
+        "public": 1,
+        "username": "euripidean"
+    },
+    {
+        "avatar_url": "https://static.wikia.nocookie.net/starwars/images/0/01/Hansoloprofile.jpg/revision/latest?cb=20100129155042",
+        "id": 2,
+        "password": "$2b$12$gQDsR2HeMoEoixBA/BXFIurYSCWRUKECiHBiV15LMOVfN8oI8Hu.e",
+        "public": 1,
+        "username": "janetest"
+    }
+]

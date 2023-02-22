@@ -1,0 +1,18 @@
+[
+    {
+        "artist": 1,
+        "cover_url": "https://upload.wikimedia.org/wikipedia/en/9/99/No_more_shall_we_part_cover.jpg",
+        "genre": "ROCK",
+        "id": 1,
+        "release_date": "2001-04-02",
+        "title": "No More Shall We Part"
+    },
+    {
+        "artist": 2,
+        "cover_url": "https://upload.wikimedia.org/wikipedia/en/7/7a/Born_to_Run_%28Front_Cover%29.jpg",
+        "genre": "ROCK",
+        "id": 2,
+        "release_date": "1975-08-25",
+        "title": "Born to Run"
+    }
+]

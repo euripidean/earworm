@@ -11,4 +11,4 @@
  - Add legends to all forms
  - Profile page: only logged in user can edit.
  - Edit pages for reviews: only user who created it can edit.
- - Add search bar and use that to populate album/artist etc?
+ - Can we use pre-existing page info to pre-populate form for creating review etc?
