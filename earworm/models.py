@@ -1,8 +1,8 @@
 from sqlalchemy_utils import URLType
 from flask_login import UserMixin
 
-from app.extensions import app, db
-from app.utils import FormEnum
+from earworm.extensions import app, db
+from earworm.utils import FormEnum
 
 
 class Genre(FormEnum):

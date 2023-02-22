@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired, Length, URL, ValidationError
 from wtforms.fields.html5 import DateField
 from wtforms.widgets import TextArea
 
-from app.models import Artist, Album, Review, Genre
+from earworm.models import Artist, Album, Review, Genre
 
 class ArtistForm(FlaskForm):
     # TODO: Look into using mixins to change submit button text based on whether the form is for adding or updating.

@@ -1,6 +1,6 @@
-from app.extensions import db, app
-from app.main.routes import main
-from app.auth.routes import auth
+from earworm.extensions import db, app
+from earworm.main.routes import main
+from earworm.auth.routes import auth
 
 app.register_blueprint(main)
 app.register_blueprint(auth)

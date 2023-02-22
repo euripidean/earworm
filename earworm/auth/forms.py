@@ -2,9 +2,9 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, DateField, SelectField, SubmitField, FloatField, PasswordField, BooleanField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired, Length, url, ValidationError
-from app.extensions import app, db, bcrypt
+from earworm.extensions import app, db, bcrypt
 
-from app.models import User
+from earworm.models import User
 
 class SignUpForm(FlaskForm):
     """Sign up form."""

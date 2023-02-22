@@ -2,10 +2,10 @@ from flask import Blueprint, request, render_template, redirect, url_for, flash
 from datetime import date, datetime
 
 from flask_login import login_required, current_user
-from app.extensions import app, db
+from earworm.extensions import app, db
 
-from app.models import Artist, Album, Review
-from app.main.forms import ArtistForm, AlbumForm, ReviewForm
+from earworm.models import Artist, Album, Review
+from earworm.main.forms import ArtistForm, AlbumForm, ReviewForm
 
 ##########################################
 #           Routes                       #
