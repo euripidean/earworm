@@ -9,7 +9,7 @@ from earworm.models import User
 class SignUpForm(FlaskForm):
     """Sign up form."""
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=50)])
-    password = PasswordField('Password', validators=[DataRequired(), Length(min=10, max=50)])
+    password = PasswordField('Password', validators=[DataRequired()])
     avatar_url = StringField('Avatar URL', validators=[url()])
     public = BooleanField('Would you like your profile to be public?')
     submit = SubmitField('Sign Up')
