@@ -30,7 +30,7 @@ class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.Text, nullable=False)
-    password = db.Column(db.LargeBinary, nullable=False)
+    password = db.Column(db.Text(100), nullable=False)
     avatar_url = db.Column(URLType, nullable=True)
     public = db.Column(db.Boolean, nullable=False, default=True)
     liked_artists = db.relationship('Artist', secondary="artist_listeners", backref='user', lazy=True)
