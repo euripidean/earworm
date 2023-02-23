@@ -29,8 +29,8 @@ class User(UserMixin, db.Model):
     """User model."""
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), nullable=False)
-    password = db.Column(db.String(150), nullable=False)
+    username = db.Column(db.Text(50), nullable=False)
+    password = db.Column(db.Text(50), nullable=False)
     avatar_url = db.Column(URLType, nullable=True)
     public = db.Column(db.Boolean, nullable=False, default=True)
     liked_artists = db.relationship('Artist', secondary="artist_listeners", backref='user', lazy=True)
@@ -39,8 +39,8 @@ class Artist(db.Model):
     """Artist model."""
     __tablename__ = 'artists'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
-    bio = db.Column(db.String(500), nullable=True)
+    name = db.Column(db.Text(50), nullable=False)
+    bio = db.Column(db.Text(500), nullable=True)
     photo_url = db.Column(URLType, nullable=True)
     listeners = db.relationship('User', secondary="artist_listeners" , backref='artist', lazy=True)
 
@@ -51,7 +51,7 @@ class Album(db.Model):
     """Album model."""
     __tablename__ = 'albums'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50), nullable=False)
+    title = db.Column(db.Text(255), nullable=False)
     release_date = db.Column(db.Date, nullable=False)
     cover_url = db.Column(URLType, nullable=True)
     genre = db.Column(db.Enum(Genre), nullable=False)
@@ -65,7 +65,7 @@ class Review(db.Model):
     __tablename__ = 'reviews'
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer, nullable=False)
-    summary = db.Column(db.String(140), nullable=False)
+    summary = db.Column(db.Text(140), nullable=False)
     content = db.Column(db.Text, nullable=False)
     cover_url = db.Column(URLType, nullable=True)
     date_created = db.Column(db.Date, nullable=False)
