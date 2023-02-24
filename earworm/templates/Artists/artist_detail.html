@@ -1,5 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
-{% include 'Artists/artist.html'%}
+    <h1>{{ artist.name }}</h1>
+    <img src="{{ artist.photo_url }}" alt="{{ artist.name }}">
+    <h2>Biography</h2>
+    <p class="bio">{{ artist.bio }}</p>
+    <h2>Featured Albums</h2>
+    {% if artist.albums|length == 0 %}
+        <p>There are no albums currently in Earworm for this artist.</p>
+        <p>Want to add one?</p>   
+    {% else %}
+    <ul class="albums">
+        {% for album in artist.albums %}
+            <li>
+                <a href="{{ url_for('albums.album_detail', album_id=album.id) }}">
+                    <img src="{{ album.cover_url }}" alt="{{ album.name }}">
+                    <h3>{{ album.name }}</h3>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="{{ url_for('main.add_album') }}">
+        <input type="hidden" name="artist_id" value="{{ artist.id }}">
+        <button class="primary" type="submit">Add Album</button>
+    </form>
+    <form action="{{ url_for('main.edit_artist', artist_id=artist.id) }}">
+        <button class="primary" type="submit">Edit Artist</button>
+    </form>
 
 {% endblock %}

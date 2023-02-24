@@ -15,7 +15,7 @@ body, html {
     font-size: 48px;
 }
 
-input {
+input, textarea {
     font-family: 'Roboto', sans-serif;
 }
 

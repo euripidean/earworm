@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 from earworm.extensions import app, db
 
 from earworm.models import Artist, Album, Review
-from earworm.main.forms import ArtistForm, AlbumForm, ReviewForm
+from earworm.main.forms import ArtistForm, ArtistUpdateForm, AlbumForm, ReviewForm
 
 ##########################################
 #           Routes                       #
@@ -67,31 +67,22 @@ def add_artist():
 @login_required
 def artist_detail(artist_id):
     artist = Artist.query.get(artist_id)
-    form = ArtistForm(obj=artist)
+    albums = Album.query.filter_by(artist=artist_id).all()
+    return render_template('Artists/artist_detail.html', artist=artist, albums=albums)
 
-    if form.validate_on_submit():
-        artist.name = form.name.data
-        artist.photo_url = form.photo_url.data
-        db.session.commit()
-        
-        flash('Artist updated successfully!')
-        return redirect(url_for('main.artist_detail', artist_id=artist.id))
-    return render_template('Artists/artist_detail.html', artist=artist, form=form)
-
-@main.route('/artist/<artist_id>/edit', methods=['POST'])
+@main.route('/edit/<artist_id>', methods=['GET','POST'])
 @login_required
 def edit_artist(artist_id):
     artist = Artist.query.get(artist_id)
-    form = ArtistForm(obj=artist)
-
+    form = ArtistUpdateForm(obj=artist)
     if form.validate_on_submit():
         artist.name = form.name.data
         artist.photo_url = form.photo_url.data
         artist.bio = form.bio.data
         db.session.commit()
-        
         flash('Artist updated successfully!')
         return redirect(url_for('main.artist_detail', artist_id=artist.id))
+    artist = Artist.query.get(artist_id)
     return render_template('Artists/artist_edit.html', artist=artist, form=form)
 
 @main.route('/add_album', methods=['GET', 'POST'])

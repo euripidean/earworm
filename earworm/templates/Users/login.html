@@ -24,7 +24,7 @@
         {{ form.password.label }}
         {{ form.password }} 
         {{ form.submit }}
-        <p class="sub">Don't have an account yet? <a href="/signup.html">Sign Up here</a>.</p>
+        <p class="sub">Don't have an account yet? <a href="{{ url_for('auth.signup')}}">Sign Up here</a>.</p>
     </fieldset>
 </form>
 {% endif %}
