@@ -35,10 +35,15 @@ class ArtistUpdateForm(ArtistMixin):
 class AlbumMixin(FlaskForm):
     """Form basis for Albums."""
     title = StringField('Album Title', validators=[DataRequired()])
-    release_date = DateField('Release Date', validators=[DataRequired()], format='%Y-%m-%d')
     artist = QuerySelectField(query_factory=lambda: Artist.query, get_label='name')
+    release_date = DateField('Release Date', validators=[DataRequired()], format='%Y-%m-%d')
     cover_url = StringField('Cover URL', validators=[URL()])
     genre = SelectField('Genre', choices=Genre.choices())
+
+
+class AlbumForm(AlbumMixin):
+    """Form for adding an Album. Inherits from AlbumMixin."""
+    submit = SubmitField('Add Album')
 
     def validate_title(self, title):
         """Validate that the album title is unique for the artist."""
@@ -47,13 +52,12 @@ class AlbumMixin(FlaskForm):
         if album:
             raise ValidationError('Album already exists for this artist. Maybe you want to edit it?')
 
-class AlbumForm(AlbumMixin):
-    """Form for adding an Album. Inherits from AlbumMixin."""
-    submit = SubmitField('Add Album')
-
 class AlbumUpdateForm(AlbumMixin):
     """Form for updating an Album. Inherits from AlbumMixin."""
     submit = SubmitField('Update Album')
+
+class AlbumFromArtistForm(AlbumMixin):
+    submit = SubmitField('Add Album')
 
 
 class ReviewFormMixin(FlaskForm):

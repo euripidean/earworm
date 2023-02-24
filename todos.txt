@@ -1,25 +1,34 @@
  DONE - Add error messages to all form pages
  DONE - user auth routes
  DONE - Log in redirects to previous page
- - All Earworms: all reviews, albums, artists (with associated actions) and other users (whose profiles are public).
- - Add Profile page (with edit profile section)
- GOOD PROGRESS - Add separate edit routes so unlogged in folks can read reviews.
- - Favourite artist option (check the Book Auth lab)
- - Better validation on reviews if possible (MAYBE DONE?)
+ DONE - If no search term entered in bar, redirect to all earworms.
+ DONE - Add content to About page.
+ DONE - Add functionality to Album detail
+ DONE - All Earworms: all reviews, albums, artists (with associated actions) and other users (whose profiles are public).
  DONE - Research how to style the form elements from this SO: https://stackoverflow.com/questions/34738331/using-flask-wtforms-how-do-i-style-my-form-section-of-the-html
  DONE - Add legends to all forms
- - Profile page: only logged in user can edit.
- - Edit pages for reviews: only user who created it can edit.
- - Can we use pre-existing page info to pre-populate form for creating review etc? Yes.
-
- FIX SESSION: Thur Feb 23
- -Join us form link works
- - Sign Up here link corrected
- ARTISTS
+ DONE - Join us form link works
+ DONE - Sign Up here link corrected
  DONE - Increase character limit for artist bio
  DONE - Different design for artist detail
- DONE - 'Edit Artist' button
-  // Use JS to put character count on page?? Look up how to do this
+ DONE - 'Edit Artist' button.
+ DONE - Sort albums by release date desc
 
- Styling
- // Footer
+
+
+ GOOD PROGRESS - Add separate edit routes so unlogged in folks can read reviews.
+ - Add Profile page (with edit profile section)
+ - Favourite artist option (check the Book Auth lab)
+// Use JS to put character count on page?? Look up how to do this
+// How to make field read only when going from Artist > Add Album Try This: https://stackoverflow.com/questions/9599551/wtforms-support-for-input-readonly-attribute
+// Add 'Follow Artist' button (and follower count?)
+
+  - Profile page: only logged in user can edit.
+ - Edit pages for reviews: only user who created it can edit.
+   CHECK - Better validation on reviews if possible (MAYBE DONE?)
+   - Can we use pre-existing page info to pre-populate form for creating review etc? Yes.
+
+ Styling General
+ DONE - Footer
+ // - Better styling of users if there's time
+ // - Set rating as radio and style into stars, if possible.

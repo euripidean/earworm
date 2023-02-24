@@ -15,16 +15,19 @@
     <h2>Biography</h2>
     <p class="bio">{{ artist.bio }}</p>
     <h2>Featured Albums</h2>
-    {% if artist.albums|length == 0 %}
-        <p>There are no albums currently in Earworm for this artist.</p>
-        <p>Want to add one?</p>   
+    {% if albums|length == 0 %}
+        <p>There are no albums currently in Earworm for this artist.</p>   
     {% else %}
     <ul class="albums">
-        {% for album in artist.albums %}
+        {% for album in albums %}
             <li>
-                <a href="{{ url_for('albums.album_detail', album_id=album.id) }}">
-                    <img src="{{ album.cover_url }}" alt="{{ album.name }}">
-                    <h3>{{ album.name }}</h3>
+                <a href="{{ url_for('main.album_detail', album_id=album.id) }}">
+                    <div class="container">
+                    <img src="{{ album.cover_url }}" alt="{{ album.title }}" class="image">
+                    <div class="overlay">
+                        <div class="text">{{ album.title }}<p>{{album.release_date.strftime('%Y')}}</p></div>
+                    </div>
+                </div>
                 </a>
             </li>
         {% endfor %}

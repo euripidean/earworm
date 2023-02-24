@@ -1,15 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
-<section class="album-detail">
-    <h2>{{album.title}}</h2>
-    <h3>{{artist.name}}</h3>
-    <img src="{{album.cover_url}}" alt="{{album.title}}">
-    <ul class="album-info">
-        <li>Genre: {{album.genre}}</li>
-        <li>Released: {{album.release_date.strftime('%Y')}}</li>
+<h1 class="record-name">{{ album.title }}</h1>
+    <div class="actions">
+        <form action="{{ url_for('main.create_review') }}">
+            <input type="hidden" name="album_id" value="{{ album.id }}">
+            <button class="primary smaller" type="submit">Review Album</button>
+        </form>
+        <form action="{{ url_for('main.edit_album', album_id=album.id) }}">
+            <button class="secondary smaller" type="submit">Edit Album</button>
+        </form>
+        </div>
+    <div class="album-detail-image" style="background-image:url({{album.cover_url}});">
+    </div>
+    <h2>Reviews</h2>
+    {% if reviews|length == 0 %}
+        <p>There are no reviews currently in Earworm for this album.</p>   
+    {% else %}
+    <ul class="reviews">
+        {% for review in reviews %}
+            <li>
+                <a href="{{ url_for('main.review_detail', review_id=review.id) }}">
+                    <h3>{{ review.summary }}</h3>
+                    <p>Some review text but truncated.</p>
+                </a>
+            </li>
+        {% endfor %}
     </ul>
-    <button class="primary smaller">Review</button>
-</section>
+    {% endif %}
 
-    
 {% endblock %}

@@ -4,8 +4,8 @@ from datetime import date, datetime
 from flask_login import login_required, current_user
 from earworm.extensions import app, db
 
-from earworm.models import Artist, Album, Review
-from earworm.main.forms import ArtistForm, ArtistUpdateForm, AlbumForm, ReviewForm
+from earworm.models import Artist, Album, Review, User
+from earworm.main.forms import ArtistForm, ArtistUpdateForm, AlbumForm, AlbumUpdateForm, AlbumFromArtistForm, ReviewForm
 
 ##########################################
 #           Routes                       #
@@ -20,7 +20,8 @@ def homepage():
 @main.route('/search', methods=['GET', 'POST'])
 def search():
     search_term = request.args.get('query')
-    print(search_term)
+    if not search_term:
+        return redirect(url_for('main.all_earworms'))
     return redirect(url_for('main.search_results', search_term=search_term))
 
 @main.route('/search_results/<search_term>', methods=['GET', 'POST'])
@@ -29,7 +30,8 @@ def search_results(search_term):
     artist_results = Artist.query.filter(Artist.name.ilike(f'%{search_term}%')).all()
     album_results = Album.query.filter(Album.title.ilike(f'%{search_term}%')).all()
     review_results = Review.query.filter(Review.content.ilike(f'%{search_term}%')).all()
-    return render_template('Admin/search_results.html', artist_results=artist_results, album_results=album_results, review_results=review_results, search_term=search_term)
+    user_results = User.query.filter(User.username.ilike(f'%{search_term}%')).all()
+    return render_template('Admin/search_results.html', artist_results=artist_results, album_results=album_results, review_results=review_results, user_results=user_results, search_term=search_term)
 
 @main.route('/about')
 def about():
@@ -44,7 +46,8 @@ def all_earworms():
     all_reviews = Review.query.order_by(Review.date_created.desc()).all()
     all_artists = Artist.query.order_by(Artist.name).all()
     all_albums = Album.query.order_by(Album.title).all()
-    return render_template('Admin/all_earworms.html', reviews=all_reviews, artists=all_artists, albums=all_albums)
+    public_users = User.query.filter_by(public=True).all()
+    return render_template('Admin/all_earworms.html', reviews=all_reviews, artists=all_artists, users=public_users, albums=all_albums)
 
 @main.route('/add_artist', methods=['GET', 'POST'])
 @login_required
@@ -66,10 +69,10 @@ def add_artist():
 @main.route('/artist/<artist_id>', methods=['GET', 'POST'])
 def artist_detail(artist_id):
     artist = Artist.query.get(artist_id)
-    albums = Album.query.filter_by(artist=artist_id).all()
+    albums = Album.query.filter_by(artist=artist.id).order_by(Album.release_date.desc()).all()
     return render_template('Artists/artist_detail.html', artist=artist, albums=albums)
 
-@main.route('/edit/<artist_id>', methods=['GET','POST'])
+@main.route('/edit/artist/<artist_id>', methods=['GET','POST'])
 @login_required
 def edit_artist(artist_id):
     artist = Artist.query.get(artist_id)
@@ -87,7 +90,11 @@ def edit_artist(artist_id):
 @main.route('/add_album', methods=['GET', 'POST'])
 @login_required
 def add_album():
+    artist = request.args.get('artist_id')
+    artist = Artist.query.get(artist)
     form = AlbumForm()
+    if artist:
+        form.artist.data = artist
     if form.validate_on_submit():
         new_album = Album(
             title=form.title.data,
@@ -108,21 +115,26 @@ def album_detail(album_id):
     artist = Artist.query.get(album.artist)
     return render_template('Albums/album_detail.html', album=album, artist=artist)
 
-@main.route('/album/<album_id>/edit', methods=['POST'])
+@main.route('/edit/album/<album_id>', methods=['GET','POST'])
 @login_required
 def edit_album(album_id):
     album = Album.query.get(album_id)
-    form = AlbumForm(obj=album)
+    genre = album.genre
+    artist = Artist.query.get(album.artist)
+    form = AlbumUpdateForm(obj=album)
+    form.artist.data = artist
+    form.genre.data = genre.name
 
     if form.validate_on_submit():
         album.title = form.title.data
         album.release_date = form.release_date.data
-        album.artist_id = form.artist_id.data
+        album.artist = form.artist.data.id
         album.cover_url = form.cover_url.data
         album.genre = form.genre.data
         db.session.commit()
         flash('Album updated successfully!')
         return redirect(url_for('main.album_detail', album_id=album.id))
+    album = Album.query.get(album_id)
     return render_template('Albums/album_edit.html', album=album, form=form)
 
 @main.route('/create_review', methods=['GET', 'POST'])

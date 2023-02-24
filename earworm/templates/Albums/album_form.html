@@ -16,5 +16,9 @@
 {{ form.artist.label }} 
 {{ form.artist }}
 {{ form.genre.label }} 
+{% if genre %}
+{{ form.genre (value=album.genre) }}
+{% else %}
 {{ form.genre }}
+{% endif %}
 {{ form.submit }}

@@ -38,6 +38,17 @@
 {% else %}
 <p>No reviews found.</p>
 {% endif %}
+
+{% if users %}
+<h1>Users</h1>
+<div class="user-list">
+{% for user in users %}
+{% include 'Users/user.html' %}
+{% endfor %}
+</div>
+{% else %}
+<p>No users found.</p>
+{% endif %}
 </section>
 
 
