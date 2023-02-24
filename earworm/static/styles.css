@@ -58,10 +58,11 @@ nav a:hover {
 } 
 
 main {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding-bottom: 80px;
 }
+
 
 a {
     color: #f0941c;
@@ -73,6 +74,7 @@ a {
 
 h1 {
     color: #f0941c;
+    margin-bottom: 0;
 }
 
 h2 {
@@ -100,24 +102,48 @@ footer {
     background-color: #070707;
     color: #f0941c;
     padding: 7%;
-    text-align: center;
-    font-weight: bold;
+    padding-bottom: 1%;
+    text-align: right;
+    font-weight: lighter;
+}
+
+footer p {
+    margin-bottom: 3px;
+}
+
+footer a {
+    margin-top: 3px;
+    font-size: 0.5em;
+    color: #e8e4db;
 }
 
 #log-in-status {
     position: absolute;
     top: -5px;
     right: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     color: #e8e4db;
 }
+
+#log-in-status p {
+    margin-right: 30px;
+}
+
+#log-in-status a {
+    border:none;
+    margin-left: 7px;
+}
+
+#log-in-status a:hover {
+    color: #e8e4db;
+}
+
 
 .intro {
     text-align: center;
     line-height: 1.25;
     max-width: 600px;
     margin: 0 auto;
-    /* padding-bottom: 100px; */
 }
 
 .user-actions {
@@ -135,7 +161,7 @@ footer {
 .primary, input[type=submit] {
     border: none;
     border-radius: 8px;
-    font-size: 0.75em;
+    font-size: 0.7em;
     font-weight: 200;
     padding: 20px;
     cursor: pointer;
@@ -154,7 +180,7 @@ input[type=submit]:hover {
 }
 
 .primary.smaller {
-    font-size: 0.5em;
+    font-size: 0.4em;
     font-weight: 100;
     padding: 10px;
 }
@@ -168,7 +194,7 @@ input[type=submit] {
 .secondary {
     border: none;
     border-radius: 8px;
-    font-size: 0.75em;
+    font-size: 0.6em;
     font-weight: lighter;
     padding: 20px;
     cursor: pointer;
@@ -183,7 +209,7 @@ input[type=submit] {
 }
 
 .secondary.smaller {
-    font-size: 0.5em;
+    font-size: 0.4em;
     font-weight: 100;
     padding: 10px;
 }
@@ -194,7 +220,6 @@ fieldset {
     display: flex;
     flex-direction: column;
     align-content: center;
-    /* max-width: 400px; */
     margin: 7% auto;
     font-size: 0.5em;
     font-weight: lighter;
@@ -247,8 +272,6 @@ input[type=text], input[type=url], input[type=password], input[type=date], selec
     color: #070707;
 }
 
-
-
 .input:focus, .url:focus {
     outline: none;
 }
@@ -264,13 +287,6 @@ legend {
     font-size: 2em;
 }
 
-.artist-image {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center center;
-}
 
 .errorlist {
     background-color: #f0941c;
@@ -291,30 +307,78 @@ legend {
 
 .artist-list {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    padding:5%;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.artist-image {
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center center;
 }
 
 .artist-info {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    margin-bottom: 5%;
+    flex-basis: 1020px;
+    flex: 1;
+    margin-top: 20px;
+}
+
+.artist-info p {
+    line-height: 1.5;
 }
 
 .artist-text {
-    flex-basis: 60%;
-    margin-left: 30px;
+    flex: 2;
+    margin-left: 80px;
+
 }
 
 .more {
     font-size: 0.5em;
     font-weight: 100;
     margin: 0;
+}
+
+.record-name {
+    font-size: 1.5em;
+    font-weight: 100;
+    margin: 0;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0;
+    margin-bottom: 10px;
+    justify-content: flex-start;
+}
+
+.actions button {
+    margin-right: 20px;
 
 }
+
+.detail-image {
+    width: 100%;
+    height: 600px;
+    background-size: cover;
+    background-position: center bottom;
+    margin: 0 auto;
+}
+
+.main-toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+
+
 
 

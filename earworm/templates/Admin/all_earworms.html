@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+{% include 'Admin/toolbar.html' %}
 {% include 'Admin/search.html' %}
 
+<section class="all-earworms">
 {% if artists %}
+<h1>Artists</h1>
 <div class="artist-list">
-<h2>Artists</h2>
 {% for artist in artists %}
 <div class="artist-info">
 {% include 'Artists/artist.html' %}
@@ -16,8 +18,8 @@
 {% endif %}
 
 {% if albums %}
+<h1>Albums</h1>
 <div class="album-list">
-    <h2>Albums</h2>
 {% for album in albums %}
 {% include 'Albums/album.html' %}
 {% endfor %}
@@ -27,8 +29,8 @@
 {% endif %}
 
 {% if reviews %}
+<h1>Reviews</h1>
 <div class="review-list">
-    <h2>Reviews</h2>
 {% for review in reviews %}
 {% include 'Reviews/review.html' %}
 {% endfor %}
@@ -36,6 +38,7 @@
 {% else %}
 <p>No reviews found.</p>
 {% endif %}
+</section>
 
 
 {% endblock %}

@@ -18,8 +18,8 @@ class ArtistMixin(FlaskForm):
         """Validate that the artist bio is at least 10 characters."""
         if len(bio.data) < 10:
             raise ValidationError('Your bio must be at least 10 characters.')
-        if len(bio.data) > 500:
-            raise ValidationError('Your bio must be less than 500 characters.')
+        if len(bio.data) > 9000:
+            raise ValidationError('Your bio must be less than 9000 characters.')
 
 class ArtistForm(ArtistMixin):
     submit = SubmitField('Add Artist')

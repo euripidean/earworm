@@ -6,7 +6,7 @@
         <button class="primary" type="submit">Log Out</button>
     </form>
 {% else %}
-<form action="/login" method="POST">
+<form method="POST">
     {{ form.csrf_token }}
     <fieldset>
         <legend>Sign In</legend>

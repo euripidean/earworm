@@ -1,5 +1,13 @@
-<div class="button-group">
-    <form action="{{url_for('main.add_album'), artist_id=artist.id}}", method="GET">
-        <button class="primary" type="submit">Add Album</button>
+<div class="main-toolbar">
+<div class="actions">
+    <form action="{{url_for('main.add_artist')}}", method="GET">
+        <button class="secondary smaller" type="submit">Add an artist</button>
     </form>
+    <form action="{{url_for('main.add_album')}}", method="GET">
+        <button class="secondary smaller" type="submit">Add an album</button>
+    </form>
+    <form action="{{url_for('main.create_review')}}", method="GET">
+        <button class="secondary smaller" type="submit">Write a review</button>
+    </form>
+</div>
 </div>

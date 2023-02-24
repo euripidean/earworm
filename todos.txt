@@ -1,11 +1,11 @@
  DONE - Add error messages to all form pages
- - complete detail pages
  DONE - user auth routes
+ DONE - Log in redirects to previous page
  - All Earworms: all reviews, albums, artists (with associated actions) and other users (whose profiles are public).
  - Add Profile page (with edit profile section)
  GOOD PROGRESS - Add separate edit routes so unlogged in folks can read reviews.
  - Favourite artist option (check the Book Auth lab)
- - Better validation on reviews if possible
+ - Better validation on reviews if possible (MAYBE DONE?)
  DONE - Research how to style the form elements from this SO: https://stackoverflow.com/questions/34738331/using-flask-wtforms-how-do-i-style-my-form-section-of-the-html
  DONE - Add legends to all forms
  - Profile page: only logged in user can edit.
@@ -16,10 +16,10 @@
  -Join us form link works
  - Sign Up here link corrected
  ARTISTS
- // Increase character limit for artist bio
- // Use JS to put character count on page?? Look up how to do this
- // Different design for artist detail - add album button, see listeneners button??
- // add 'Edit Artist' button
+ DONE - Increase character limit for artist bio
+ DONE - Different design for artist detail
+ DONE - 'Edit Artist' button
+  // Use JS to put character count on page?? Look up how to do this
 
  Styling
  // Footer

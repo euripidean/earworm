@@ -1,6 +1,5 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, login_user, logout_user
-from requests import request
 from earworm.extensions import app, db, bcrypt
 
 from earworm.auth.forms import SignUpForm, LoginForm
@@ -30,7 +29,8 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         login_user(user, remember=True)
-        return redirect(url_for('main.all_earworms'))
+        next = request.args.get('next')
+        return redirect(next or url_for('main.all_earworms'))
     return render_template('Users/login.html', form=form)
 
 @auth.route('/logout')

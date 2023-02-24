@@ -40,7 +40,7 @@ class Artist(db.Model):
     __tablename__ = 'artists'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
-    bio = db.Column(db.String(500), nullable=True)
+    bio = db.Column(db.String(9000), nullable=True)
     photo_url = db.Column(URLType, nullable=True)
     listeners = db.relationship('User', secondary="artist_listeners" , backref='artist', lazy=True)
 

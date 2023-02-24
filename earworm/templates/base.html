@@ -10,22 +10,22 @@
     
     </head>
     <body>
+        <div id="log-in-status">
+            {% if current_user.is_authenticated %}
+            <p>Logged in as <strong>{{ current_user.username }}</strong> <a href="/profile"><i class="fa-solid fa-user">&nbsp;</i></a></p>
+            {% endif %}
+        </div>
         <nav>
             <div class="nav-logo">
                 <a href="{{url_for ('main.all_earworms')}}">
                 <img src="/static/Images/earworm.png" width="250px" alt="Earworm Logo" >
                 </a>
             </div>
-            <div id="log-in-status">
-                {% if current_user.is_authenticated %}
-                <p>Logged in as <strong>{{ current_user.username }}</strong></p>
-                {% endif %}
-            </div>
             <ul>
                 {% if current_user.is_authenticated %}
-                <li><a href="/add_artist">Add Artist</a></li>
+                <!-- <li><a href="/add_artist">Add Artist</a></li>
                 <li><a href="/add_album">Add Album</a></li>
-                <li><a href="/create_review">Create Review</a></li>
+                <li><a href="/create_review">Create Review</a></li> -->
                 <li><a href="/all_earworms">Browse</a></li>
                 <li><a href="/logout">Log Out</a></li>
                 {% else %}
@@ -44,10 +44,8 @@
     </main>
         <footer>
             <p>Earworm &copy; 2023</p>
-            <div class="footer-links">
             <a href="/about">About</a>
             <a href="/contact">Contact Us</a>
-        </div>
         </footer>
     </body>
 </html>

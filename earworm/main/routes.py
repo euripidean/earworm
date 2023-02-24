@@ -64,7 +64,6 @@ def add_artist():
     return render_template('Artists/add_artist.html', form=form)
 
 @main.route('/artist/<artist_id>', methods=['GET', 'POST'])
-@login_required
 def artist_detail(artist_id):
     artist = Artist.query.get(artist_id)
     albums = Album.query.filter_by(artist=artist_id).all()

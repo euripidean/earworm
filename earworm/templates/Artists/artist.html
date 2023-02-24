@@ -1,7 +1,9 @@
+<div class="artist-info">
 <div class="artist-image" style="background-image:url({{artist.photo_url}});">
 </div>
 <div class="artist-text">
 <h5><a href="{{ url_for('main.artist_detail', artist_id=artist.id) }}">{{ artist.name }}</a></h5>
 <p> {{artist.bio }}</p>
 <a class="more" href="{{ url_for('main.artist_detail', artist_id=artist.id) }}">View Artist</a>
+</div>
 </div>
