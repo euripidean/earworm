@@ -1,8 +1,12 @@
-<div class="user-info">
-    <div class="user-image" style="background-image:url({{user.avatar_url}});">
-    </div>
-    <div class="user-text">
-    <h5>{{ user.username }}</a></h5>
-    </div>
+<div class="user-display">
+    {% if user.public %}
+    {% if user.avatar_url %}
+    <img src=" {{ user.avatar_url }} " alt="user image" class="avatar">
+    {% else %}
+    <img src="../static/Images/userdefault3.png" alt="user image" class="avatar">
+    <h3>{{ user.username }}</h3>
+    {% endif %}
+    {% endif %}
 </div>
+
     

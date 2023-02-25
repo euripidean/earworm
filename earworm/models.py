@@ -32,8 +32,10 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(150), nullable=False)
     password = db.Column(db.String(255), nullable=False)
     avatar_url = db.Column(db.String(255), nullable=True)
+    bio = db.Column(db.String(255), nullable=True)
     public = db.Column(db.Boolean, nullable=False, default=True)
     liked_artists = db.relationship('Artist', secondary="artist_listeners", backref='user', lazy=True)
+    liked_users = db.relationship('User', secondary="user_followers", backref='user', lazy=True)
 
 class Artist(db.Model):
     """Artist model."""
@@ -56,6 +58,7 @@ class Album(db.Model):
     cover_url = db.Column(URLType, nullable=True)
     genre = db.Column(db.Enum(Genre), nullable=False)
     artist = db.Column(db.Integer, db.ForeignKey('artists.id'), nullable=False)
+    date_added = db.Column(db.Date, nullable=False)
 
     def __repr__(self):
         return f'Album({self.title})'
@@ -69,7 +72,7 @@ class Review(db.Model):
     content = db.Column(db.Text, nullable=False)
     date_created = db.Column(db.Date, nullable=False)
     date_updated = db.Column(db.Date, nullable=True)
-    created_by = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    created_by = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
     reviewed_album = db.Column(db.Integer, db.ForeignKey('albums.id'), nullable=False)
 
     def __repr__(self):
@@ -78,4 +81,14 @@ class Review(db.Model):
 user_artist_table = db.Table('artist_listeners',
     db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
     db.Column('artist_id', db.Integer, db.ForeignKey('artists.id'), primary_key=True)
+)
+
+artist_album_table = db.Table('artist_albums',
+    db.Column('artist_id', db.Integer, db.ForeignKey('artists.id'), primary_key=True),
+    db.Column('album_id', db.Integer, db.ForeignKey('albums.id'), primary_key=True)
+)
+
+user_followers_table = db.Table('user_followers',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True)
 )

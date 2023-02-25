@@ -2,6 +2,16 @@
 {% block content %}
     <h1 class="record-name">{{ artist.name }}</h1>
     <div class="actions">
+        {% if current_user.is_authenticated %}
+        {% if artist not in current_user.liked_artists %}
+        <form action="/follow/{{ artist.id }}" method="POST">
+            <button class="primary smaller" type="submit">Follow</button>
+        </form>
+        {% else %}
+        <form action="/unfollow/{{ artist.id }}" method="POST">
+            <button class="secondary smaller" type="submit">Unfollow</button>
+        </form>
+        {% endif %}
         <form action="{{ url_for('main.add_album') }}">
             <input type="hidden" name="artist_id" value="{{ artist.id }}">
             <button class="primary smaller" type="submit">Add Album</button>
@@ -9,6 +19,18 @@
         <form action="{{ url_for('main.edit_artist', artist_id=artist.id) }}">
             <button class="secondary smaller" type="submit">Edit Artist</button>
         </form>
+        {% else %}
+        <form actions="/signup">
+            <button class="primary smaller" type="submit">Sign Up</button>
+        </form>
+        {% endif %}
+        {% if listener_count > 0 %}
+        {% if listener_count == 1 %}
+    <p class="listener-count">Followed by {{ listener_count }} user.</p>
+    {% else %}
+    <p class="listener-count">Followed by {{ listener_count }} users.</p>
+    {% endif %}
+    {% endif %}
         </div>
     <div class="detail-image" style="background-image:url({{artist.photo_url}});">
     </div>
@@ -30,6 +52,14 @@
                 </div>
                 </a>
             </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <h2>Listeners</h2>
+    {% if listener_count > 0 %}
+    <ul class="listeners">
+        {% for user in users %}
+        {% include 'Users/user.html' %}
         {% endfor %}
     </ul>
     {% endif %}

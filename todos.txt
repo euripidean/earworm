@@ -13,13 +13,15 @@
  DONE - Different design for artist detail
  DONE - 'Edit Artist' button.
  DONE - Sort albums by release date desc
+ DONE - Review Content form field
+ DONE - Favourite artist option
 
 
 
  GOOD PROGRESS - Add separate edit routes so unlogged in folks can read reviews.
- UPDATE Review Content form field (enable HTML or Richtext?)
- - Add Profile page (with edit profile section)
- - Favourite artist option (check the Book Auth lab)
+ 
+ IN PROGRESS - Add Profile page (with edit profile section)
+
 // Use JS to put character count on page?? Look up how to do this
 // How to make field read only when going from Artist > Add Album Try This: https://stackoverflow.com/questions/9599551/wtforms-support-for-input-readonly-attribute
 // Add 'Follow Artist' button (and follower count?)
@@ -36,7 +38,7 @@
  // - User styling just needs to be image w username underneath IF the user profile is public. Maybe add this to review page as well? YARP.
 
  Issues
- When you go to edit a review the rating stars revert to zero because it's not possible to push them back through to the form. UNLESS: idea to solve:
+ DONE - When you go to edit a review the rating stars revert to zero because it's not possible to push them back through to the form. UNLESS: idea to solve:
  For the form if rating has a value (or could just pass through an 'edit' variable on render?) if rating = 1, show with checked marker, if 2, etc. Might be worth a try.
  ^ HAHAHAHAHA! This worked!
 

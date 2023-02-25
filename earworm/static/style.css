@@ -93,7 +93,7 @@ h5 {
     font-weight: 100;
 }
 
-p, li {
+p {
     font-size: 0.5em;
     font-weight: lighter;
     line-height: 1.5;
@@ -169,6 +169,10 @@ footer a {
     background-color: transparent;
     color: #f0941c;
     border: 1px solid #f0941c;
+}
+
+input[type=submit] {
+    font-size: 1em;
 }
 
 .primary:hover, input[type=submit]:hover {
@@ -299,6 +303,8 @@ legend {
 }
 
 .errorlist li {
+    font-size: 0.75em;
+    font-weight: bold;
     padding-left: 10px;
 }
 
@@ -313,7 +319,15 @@ legend {
     width: 100%;
 }
 
-.artist-image, .user-image {
+.user-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.artist-image {
     border-radius: 50%;
     background-size: cover;
     background-position: center center;
@@ -324,12 +338,8 @@ legend {
     height: 350px;
 }
 
-.user-image {
-    width: 200px;
-    height: 200px;
-}
 
-.artist-info, .user-image {
+.artist-info {
     display: flex;
     flex-direction: row;
     flex-basis: 1020px;
@@ -387,6 +397,8 @@ legend {
     background-repeat: repeat(3, no-repeat);
     background-position: center center;
     margin: 10px auto;
+    border: 0.5px solid #f0941c;
+    border-radius: 4px;
 }
 
 .main-toolbar {
@@ -407,6 +419,7 @@ legend {
 .container {
     position: relative;
     width: 100%;
+    border: 0.5px solid #f0941c;
   }
 
   .image {
@@ -461,6 +474,46 @@ legend {
   .rating-checked { 
     filter: none!important; 
   }
+
+/* REVIEW STYLING */
+.review-data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.review-data p {
+    margin: 0;
+}
+
+.date-info {
+    text-transform: uppercase;
+    font-size: 0.4em;
+    margin-top: 10px;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+  }
+
+.user-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 200px;
+    padding: 2%;
+}
+
+.listener-count {
+    position: absolute;
+    right: 130px;
+    color: #f0941c;
+    font-size: 0.5em;
+    text-align: right;
+}
 
 
 

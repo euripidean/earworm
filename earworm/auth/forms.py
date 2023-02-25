@@ -1,16 +1,17 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, DateField, SelectField, SubmitField, FloatField, PasswordField, BooleanField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
-from wtforms.validators import DataRequired, Length, url, ValidationError
+from wtforms.validators import InputRequired, Length, url, ValidationError, optional
 from earworm.extensions import app, db, bcrypt
 
 from earworm.models import User
 
 class SignUpForm(FlaskForm):
     """Sign up form."""
-    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=50)])
-    password = PasswordField('Password', validators=[DataRequired()])
-    avatar_url = StringField('Avatar URL', validators=[url()])
+    username = StringField('Username', validators=[InputRequired(), Length(min=3, max=50)])
+    password = PasswordField('Password', validators=[InputRequired()])
+    avatar_url = StringField('Avatar URL', validators=[optional(), url()])
+    bio = StringField('Bio', validators=[optional(), Length(max=255)])
     public = BooleanField('Would you like your profile to be public?')
     submit = SubmitField('Sign Up')
 
@@ -22,8 +23,8 @@ class SignUpForm(FlaskForm):
 
 class LoginForm(FlaskForm):
     """Login form."""
-    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=50)])
-    password = PasswordField('Password', validators=[DataRequired(), Length(min=10, max=50)])
+    username = StringField('Username', validators=[InputRequired(), Length(min=3, max=50)])
+    password = PasswordField('Password', validators=[InputRequired(), Length(min=10, max=50)])
     submit = SubmitField('Login')
 
     def validate_username(self, username):

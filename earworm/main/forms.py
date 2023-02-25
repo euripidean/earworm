@@ -74,15 +74,15 @@ class ReviewFormMixin(FlaskForm):
 
     def validate_content(self, content):
         """ Validate that the review is at least 10 characters."""
-        if len(content.data) < 10:
-            raise ValidationError('Your review must be at least 10 characters.')
+        if len(content.data) < 80:
+            raise ValidationError('Your review must be at least 80 characters.')
 
 class ReviewForm(ReviewFormMixin):
     """Form for adding a Review. Inherits from ReviewFormMixin."""
     submit = SubmitField('Add Review')
 
     def validate_user_review(self, album):
-        """Validate that the user has not already reviewed the album."""
+        """Validate that the user has not already reviewed the album. NOTE: Not working yet."""
         user_id = current_user.id
         album_id = album.data.id
         review = Review.query.filter(Review.user_id == user_id, Review.album_id == album_id).first()

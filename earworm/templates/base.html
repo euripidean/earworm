@@ -13,7 +13,7 @@
     <body>
         <div id="log-in-status">
             {% if current_user.is_authenticated %}
-            <p>Logged in as <strong>{{ current_user.username }}</strong> <a href="/profile"><i class="fa-solid fa-user">&nbsp;</i></a></p>
+            <p>Logged in as <strong>{{ current_user.username }}</strong> <a href="/profile/{{ current_user.id }}"><i class="fa-solid fa-user">&nbsp;</i></a></p>
             {% endif %}
         </div>
         <nav>
@@ -24,9 +24,6 @@
             </div>
             <ul>
                 {% if current_user.is_authenticated %}
-                <!-- <li><a href="/add_artist">Add Artist</a></li>
-                <li><a href="/add_album">Add Album</a></li>
-                <li><a href="/create_review">Create Review</a></li> -->
                 <li><a href="/all_earworms">Browse</a></li>
                 <li><a href="/logout">Log Out</a></li>
                 {% else %}

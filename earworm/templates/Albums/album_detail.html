@@ -4,7 +4,7 @@
     <div class="actions">
         <form action="{{ url_for('main.create_review') }}">
             <input type="hidden" name="album_id" value="{{ album.id }}">
-            <button class="primary smaller" type="submit">Review Album</button>
+            <button class="primary smaller" type="submit">Add a Review</button>
         </form>
         <form action="{{ url_for('main.edit_album', album_id=album.id) }}">
             <button class="secondary smaller" type="submit">Edit Album</button>

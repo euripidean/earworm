@@ -70,7 +70,9 @@ def add_artist():
 def artist_detail(artist_id):
     artist = Artist.query.get(artist_id)
     albums = Album.query.filter_by(artist=artist.id).order_by(Album.release_date.desc()).all()
-    return render_template('Artists/artist_detail.html', artist=artist, albums=albums)
+    listener_count = len(artist.listeners)
+    listeners = [user for user in artist.listeners]
+    return render_template('Artists/artist_detail.html', artist=artist, albums=albums, listener_count=listener_count, users=listeners)
 
 @main.route('/edit/artist/<artist_id>', methods=['GET','POST'])
 @login_required
@@ -101,7 +103,8 @@ def add_album():
             release_date=form.release_date.data,
             artist=form.artist.data.id,
             cover_url=form.cover_url.data,
-            genre=form.genre.data
+            genre=form.genre.data,
+            date_added=datetime.now()
         )
         db.session.add(new_album)
         db.session.commit()
@@ -197,3 +200,43 @@ def profile(user_id):
     user = User.query.get(user_id)
     reviews = Review.query.filter_by(created_by=user.id).order_by(Review.date_created.desc()).all()
     return render_template('Users/profile.html', user=user, reviews=reviews)
+
+# @main.route('/edit/profile/<user_id>', methods=['GET','POST'])
+# @login_required
+# def edit_profile(user_id):
+#     user = User.query.get(user_id)
+#     form = UserUpdateForm(obj=user)
+
+#     if form.validate_on_submit():
+#         user.username = form.username.data
+#         user.email = form.email.data
+#         user.bio = form.bio.data
+#         db.session.commit()
+#         flash('Profile updated successfully!')
+#         return redirect(url_for('main.profile', user_id=user.id))
+#     user = User.query.get(user_id)
+#     return render_template('Users/profile_edit.html', user=user, form=form)
+
+@main.route('/follow/<artist_id>', methods=['GET', 'POST'])
+@login_required
+def like_artist(artist_id):
+    artist = Artist.query.get(artist_id)
+    if artist not in current_user.liked_artists:
+        current_user.liked_artists.append(artist)
+        db.session.commit()
+        flash('Artist followed!')
+    else:
+        flash('You already follow this artist!')
+    return redirect(url_for('main.artist_detail', artist_id=artist.id))
+
+@main.route('/unfollow/<artist_id>', methods=['GET', 'POST'])
+@login_required
+def unlike_artist(artist_id):
+    artist = Artist.query.get(artist_id)
+    if artist in current_user.liked_artists:
+        current_user.liked_artists.remove(artist)
+        db.session.commit()
+        flash('Artist unfollowed!')
+    else:
+        flash("You don't follow this artist!")
+    return redirect(url_for('main.artist_detail', artist_id=artist.id))

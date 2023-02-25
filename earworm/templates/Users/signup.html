@@ -20,10 +20,13 @@
 
         {{ form.password.label (class_="label")}}
         {{ form.password (class_="input")}}
+
+        {{ form.bio.label (class_="label")}}
+        {{ form.bio (cols="35", rows="5", placeholder="Tell us about yourself.")}}
         
 
         {{ form.avatar_url.label (class_="label")}}
-        {{ form.avatar_url (class_="url")}}
+        {{ form.avatar_url (class_="url", placeholder="http://example.com/image.jpg")}}
 
         {{ form.public.label (class_="label")}}
         {{ form.public (class_="checkbox")}}
