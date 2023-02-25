@@ -17,6 +17,7 @@
 
 
  GOOD PROGRESS - Add separate edit routes so unlogged in folks can read reviews.
+ UPDATE Review Content form field (enable HTML or Richtext?)
  - Add Profile page (with edit profile section)
  - Favourite artist option (check the Book Auth lab)
 // Use JS to put character count on page?? Look up how to do this
@@ -31,4 +32,16 @@
  Styling General
  DONE - Footer
  // - Better styling of users if there's time
- // - Set rating as radio and style into stars, if possible.
+ DONE - Set rating as radio and style into stars, if possible. https://codepen.io/nnoy01/pen/VwPdeNo
+ // - User styling just needs to be image w username underneath IF the user profile is public. Maybe add this to review page as well? YARP.
+
+ Issues
+ When you go to edit a review the rating stars revert to zero because it's not possible to push them back through to the form. UNLESS: idea to solve:
+ For the form if rating has a value (or could just pass through an 'edit' variable on render?) if rating = 1, show with checked marker, if 2, etc. Might be worth a try.
+ ^ HAHAHAHAHA! This worked!
+
+ When something is a query field, I need to make it so the right value is showing. Managed this on artist > album.
+ Need to make it so that on artist > album it's an uneditable field
+ On edit review it should be and editable field ??? if someone selected the wrong artist for the album first time round or something.
+
+ DON'T FORGET TO WRITE SOME TESTS.

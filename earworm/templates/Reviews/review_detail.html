@@ -1,4 +1,41 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Full Review</h1>
+<h1 class="record-name">{{ review.summary }}</h1>
+<a href="{{ url_for('main.artist_detail', artist_id=artist.id) }}"><h3 class="artist-subtitle">{{ artist.name }} | <strong>{{ album.title }}</strong></h3></a>
+{% if review.rating %}
+<div class="rating-wrapper-display">
+    {% for i in range(1, 6) %}
+        {% if i <= review.rating %}
+            <img name="rating" id="{{i}}" src="/static/Images/rating_star.png" width="20" class="rating-checked">
+        {% else %}
+            <img name="rating" id="{{i}}" src="/static/Images/rating_star.png" width="20">
+        {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
+<div class="review-data">
+<p class="user-tag">Contributed by <span style="color:#f0941c">
+    {% if user.public %}
+        <a href="{{ url_for('main.profile', user_id=user.id) }}">{{ user.username }}</a>
+    {% else %}
+        Anonymous
+    {% endif %}</span></p>
+<p class="date-info">Created: {{ review.date_created.strftime("%m/%d/%Y") }} 
+    {% if review.date_created != review.date_updated %}
+        | Last Updated: {{ review.date_updated.strftime("%m/%d/%Y") }}
+    {% endif %}
+</p>
+</div>
+    <div class="actions">
+        <form action="{{ url_for('main.album_detail', album_id=album.id) }}">
+            <input type="hidden" name="album_id" value="{{ album.id }}">
+            <button class="primary smaller" type="submit">Back to Album</button>
+        </form>
+        <form action="{{ url_for('main.edit_review', review_id=review.id) }}">
+            <button class="secondary smaller" type="submit">Edit Review</button>
+        </form>
+        </div>
+    <div class="album-detail-image" style="background-image:url({{album.cover_url}});">
+    </div>
+    <p>{{ review.content }}</p>
 {% endblock %}

@@ -66,10 +66,10 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer, nullable=False)
     summary = db.Column(db.String(140), nullable=False)
-    content = db.Column(db.String(800), nullable=False)
-    cover_url = db.Column(URLType, nullable=True)
+    content = db.Column(db.Text, nullable=False)
     date_created = db.Column(db.Date, nullable=False)
     date_updated = db.Column(db.Date, nullable=True)
+    created_by = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     reviewed_album = db.Column(db.Integer, db.ForeignKey('albums.id'), nullable=False)
 
     def __repr__(self):

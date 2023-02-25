@@ -313,15 +313,23 @@ legend {
     width: 100%;
 }
 
-.artist-image {
-    width: 350px;
-    height: 350px;
+.artist-image, .user-image {
     border-radius: 50%;
     background-size: cover;
     background-position: center center;
 }
 
-.artist-info {
+.artist-image {
+    width: 350px;
+    height: 350px;
+}
+
+.user-image {
+    width: 200px;
+    height: 200px;
+}
+
+.artist-info, .user-image {
     display: flex;
     flex-direction: row;
     flex-basis: 1020px;
@@ -329,11 +337,11 @@ legend {
     margin-top: 20px;
 }
 
-.artist-info p {
+.artist-info p, .user-info p {
     line-height: 1.5;
 }
 
-.artist-text {
+.artist-text, .user-text {
     flex: 2;
     margin-left: 80px;
 
@@ -442,6 +450,17 @@ legend {
     font-weight: 400;
   }
 
+/* RATING STARS */
+.rating-wrapper img, .rating-wrapper-display img {
+    filter: invert(99%) sepia(1%) saturate(0%) hue-rotate(161deg) brightness(101%) contrast(104%);
+    padding-right: 3px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .rating-checked { 
+    filter: none!important; 
+  }
 
 
 

@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 from earworm.extensions import app, db
 
 from earworm.models import Artist, Album, Review, User
-from earworm.main.forms import ArtistForm, ArtistUpdateForm, AlbumForm, AlbumUpdateForm, AlbumFromArtistForm, ReviewForm
+from earworm.main.forms import ArtistForm, ArtistUpdateForm, AlbumForm, AlbumUpdateForm, ReviewUpdateForm, ReviewForm
 
 ##########################################
 #           Routes                       #
@@ -113,7 +113,8 @@ def add_album():
 def album_detail(album_id):
     album = Album.query.get(album_id)
     artist = Artist.query.get(album.artist)
-    return render_template('Albums/album_detail.html', album=album, artist=artist)
+    reviews = Review.query.filter_by(reviewed_album=album.id).order_by(Review.date_created.desc()).all()
+    return render_template('Albums/album_detail.html', album=album, artist=artist, reviews=reviews)
 
 @main.route('/edit/album/<album_id>', methods=['GET','POST'])
 @login_required
@@ -140,14 +141,20 @@ def edit_album(album_id):
 @main.route('/create_review', methods=['GET', 'POST'])
 @login_required
 def create_review():
+    album = request.args.get('album_id')
+    rating = request.form.get('rating')
+ 
     form = ReviewForm()
+    if album:
+        form.album.data = album
     if form.validate_on_submit():
         new_review = Review(
             summary=form.summary.data,
             content=form.content.data,
-            rating=form.rating.data,
-            reviewed_album=form.album.data.id,
-            date_created=datetime.now()
+            rating= rating,
+            reviewed_album= form.album.data.id,
+            date_created=datetime.now(),
+            created_by=current_user.id
         )
         db.session.add(new_review)
         db.session.commit()
@@ -159,14 +166,34 @@ def create_review():
 def review_detail(review_id):
     review = Review.query.get(review_id)
     form = ReviewForm(obj=review)
+    album = Album.query.get(review.reviewed_album)
+    artist = Artist.query.get(album.artist)
+    user = User.query.get(review.created_by)
+    return render_template('Reviews/review_detail.html', review=review, form=form, album=album, artist=artist, user=user)
+
+@main.route('/edit/review/<review_id>', methods=['GET','POST'])
+@login_required
+def edit_review(review_id):
+    rating = request.form.get('rating')
+    review = Review.query.get(review_id)
+    album = Album.query.get(review.reviewed_album)
+    form = ReviewUpdateForm(obj=review)
+    form.album.data = album
 
     if form.validate_on_submit():
-        review.title = form.title.data
+        review.summary = form.summary.data
         review.content = form.content.data
-        review.rating = form.rating.data
-        review.album_id = form.album_id.data
+        review.rating = rating
+        review.reviewed_album = form.album.data.id
         review.date_updated = datetime.now()
         db.session.commit()
         flash('Review updated successfully!')
         return redirect(url_for('main.review_detail', review_id=review.id))
-    return render_template('Reviews/review_detail.html', review=review, form=form)
+    review = Review.query.get(review_id)
+    return render_template('Reviews/review_edit.html', review=review, form=form, edit=True)
+
+@main.route('/profile/<user_id>', methods=['GET', 'POST'])
+def profile(user_id):
+    user = User.query.get(user_id)
+    reviews = Review.query.filter_by(created_by=user.id).order_by(Review.date_created.desc()).all()
+    return render_template('Users/profile.html', user=user, reviews=reviews)

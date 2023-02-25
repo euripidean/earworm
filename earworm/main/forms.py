@@ -1,8 +1,8 @@
 from flask_login import current_user
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, SelectField, SubmitField, FloatField
+from wtforms import StringField, DateField, SelectField, SubmitField, HiddenField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
-from wtforms.validators import DataRequired, Length, URL, ValidationError
+from wtforms.validators import DataRequired, Length, URL, ValidationError, InputRequired
 from wtforms.fields.html5 import DateField
 from wtforms.widgets import TextArea
 
@@ -62,10 +62,10 @@ class AlbumFromArtistForm(AlbumMixin):
 
 class ReviewFormMixin(FlaskForm):
     """Form for adding/updating a Review. Inherits from AlbumMixin."""
-    album = QuerySelectField(query_factory=lambda: Album.query, get_label='title')
-    summary = StringField('Summary', validators=[DataRequired(), Length(max=255)])
-    rating = SelectField('Rating', choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')])
-    content = StringField('Content', validators=[DataRequired(), Length(min=10)])
+    album = QuerySelectField(query_factory=lambda: Album.query, get_label='title', allow_blank=False, blank_text='Select Album')
+    rating = HiddenField('Rating', validators=[InputRequired()])
+    summary = StringField('One line summary', validators=[DataRequired(), Length(max=255)])
+    content = StringField('Full review', widget=TextArea(), validators=[DataRequired(), Length(min=80)])
 
     def validate_summary(self, summary):
         """Validate that the summary is at most 255 characters."""

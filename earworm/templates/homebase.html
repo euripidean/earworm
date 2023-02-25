@@ -2,43 +2,18 @@
 <html>
     <head>
         <title>Earworm</title>
-        <link rel="stylesheet" href="/static/styles.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
         <script src="https://kit.fontawesome.com/1aaf6c9800.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <!-- <nav class="no-logo">
-            <div id="log-in-status">
-                {% if current_user.is_authenticated %}
-                <p>Logged in as <strong>{{ current_user.username }}</strong></p>
-                {% endif %}
-            </div>
-            <ul>
-                {% if current_user.is_authenticated %}
-                <li><a href="/add_artist">Add Artist</a></li>
-                <li><a href="/add_album">Add Album</a></li>
-                <li><a href="/create_review">Create Review</a></li>
-                <li><a href="/all_earworms">View Earworms</a></li>
-                <li><a href="/logout">Log Out</a></li>
-                {% else %}
-                <li><a href="/signup">Sign Up</a></li>
-                <li><a href="/login">Log In</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/contact">Contact Us</a></li>
-                <li><a href="/all_earworms">View Earworms</a></li>
-                {% endif %}
-            </ul>
-        </nav> -->
         <main>
             {% for message in get_flashed_messages() %}
                 <p class="flash">{{ message }}</p>
             {% endfor %}
         {% block content %}{% endblock %}
     </main>
-        <!-- <footer>
-            <p>Earworm &copy; 2023</p>
-        </footer> -->
     </body>
 </html>

@@ -7,13 +7,29 @@
 {% endfor %}
 </ul>
 {% endif %}
-
 {{ form.album.label }} 
 {{ form.album }}
-{{ form.rating.label }} 
-{{ form.rating }}
+<label>Rating</label>
+<div class="rating-wrapper">
+{% if edit %}
+    {% for i in range(1, 6) %}
+        {% if i <= review.rating %}
+            <img name="rating" id="{{i}}" src="/static/Images/rating_star.png" width="20" class="rating-checked">
+        {% else %}
+            <img name="rating" id="{{i}}" src="/static/Images/rating_star.png" width="20">
+        {% endif %}
+    {% endfor %}
+{% else %}
+<img name="rating" id="1" src="/static/Images/rating_star.png" width="20">
+<img name="rating" id="2" src="/static/Images/rating_star.png" width="20">
+<img name="rating" id="3" src="/static/Images/rating_star.png" width="20">
+<img name="rating" id="4" src="/static/Images/rating_star.png" width="20">
+<img name="rating" id="5" src="/static/Images/rating_star.png" width="20">
+{% endif %}
+</div>
+{{ form.rating(id="rating")|safe }}
 {{ form.summary.label }} 
-{{ form.summary }}
+{{ form.summary|safe }}
 {{ form.content.label }} 
-{{ form.content }}
+{{ form.content(cols="35", rows="20")|safe }}
 {{ form.submit }}
