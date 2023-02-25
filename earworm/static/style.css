@@ -323,8 +323,8 @@ legend {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
     width: 100%;
+    margin-top: 20px;
 }
 
 .artist-image {
@@ -513,6 +513,11 @@ legend {
     color: #f0941c;
     font-size: 0.5em;
     text-align: right;
+}
+
+.release-date {
+    font-size: 0.4em;
+    text-transform: uppercase;
 }
 
 

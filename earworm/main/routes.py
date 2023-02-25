@@ -117,7 +117,12 @@ def album_detail(album_id):
     album = Album.query.get(album_id)
     artist = Artist.query.get(album.artist)
     reviews = Review.query.filter_by(reviewed_album=album.id).order_by(Review.date_created.desc()).all()
-    return render_template('Albums/album_detail.html', album=album, artist=artist, reviews=reviews)
+    # if any review is by current user return true
+    review_exists = any(review.created_by == current_user.id for review in reviews)
+    if review_exists:
+        review = Review.query.filter_by(created_by=current_user.id, reviewed_album=album.id).first()
+    print(review_exists)
+    return render_template('Albums/album_detail.html', album=album, artist=artist, reviews=reviews, review_exists=review_exists, review=review)
 
 @main.route('/edit/album/<album_id>', methods=['GET','POST'])
 @login_required
@@ -145,6 +150,7 @@ def edit_album(album_id):
 @login_required
 def create_review():
     album = request.args.get('album_id')
+    album = Album.query.get(album)
     rating = request.form.get('rating')
  
     form = ReviewForm()

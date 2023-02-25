@@ -3,7 +3,11 @@
 <form action="{{url_for('main.create_review')}}" method="post">
     {{ form.csrf_token }}
     <fieldset>
+        {% if album %}
+        <legend>Add a Review for {{ album.title}}</legend>
+        {% else %}
         <legend>Add a Review</legend>
+        {% endif %}
         {% include "Reviews/review_form.html" %}
     </fieldset>
 {% endblock %}

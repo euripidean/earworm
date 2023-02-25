@@ -56,12 +56,12 @@
     </ul>
     {% endif %}
     <h2>Listeners</h2>
+    <div class="user-list">
     {% if listener_count > 0 %}
-    <ul class="listeners">
         {% for user in users %}
         {% include 'Users/user.html' %}
         {% endfor %}
-    </ul>
+    </div>
     {% endif %}
 
 {% endblock %}
