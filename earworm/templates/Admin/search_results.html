@@ -6,7 +6,11 @@
 {% if artist_results %}
 <h2>Artists</h2>
 {% for artist in artist_results %}
-<a href="{{ url_for('main.artist_detail', artist_id=artist.id) }}">{{ artist.name }}</a>
+<div class="artist-list">
+<div class="artist-info">
+    {% include 'Artists/artist.html' %}
+</div>
+</div>
 {% endfor %}
 {% endif %}
 {% if album_results %}
@@ -15,10 +19,10 @@
 <a href="{{ url_for('main.album_detail', album_id=album.id) }}">{{ album.title }}</a>
 {% endfor %}
 {% endif %}
-{% if review_results %}
-<h2>Reviews</h2>
-{% for review in review_results %}
-<a href="{{ url_for('main.review_detail', review_id=review.id) }}">{{ review.title }}</a>
+{% if user_results %}
+<h2>Users</h2>
+{% for user in user_results %}
+<a href="{{ url_for('main.user_detail', user_id=user.id) }}">{{ user.username }}</a>
 {% endfor %}
 {% endif %}
 {% endblock %}

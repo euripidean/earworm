@@ -1,1 +1,1 @@
-# Create your tests here.
+# Write tests for all auth routes

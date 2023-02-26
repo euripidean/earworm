@@ -7,12 +7,22 @@
 {% if artists %}
 <h1>Artists</h1>
 <div class="artist-list">
-{% for artist in artists %}
+    {% if artists|length > 8 %}
+    {% for i in range(1,10) %}
+    {% set artist = artists[i] %}
+    <div class="artist-info">
+        {% include 'Artists/artist.html' %}
+    </div>
+    {% endfor %}
+    {% else %}
+    {% for artist in artists %}
 <div class="artist-info">
 {% include 'Artists/artist.html' %}
 </div>
 {% endfor %}
+{% endif %}
 </div>
+<a href="{{ url_for('main.all_artists')}}" class="all">See all artists</a>
 {% else %}
 <p>No artists found.</p>
 {% endif %}
@@ -49,28 +59,26 @@
     {% endfor %}
     {% endif %}
 </ul>
+<a href="{{ url_for('main.all_albums')}}" class="all">See all albums</a>
 {% else %}
 <p>No albums found.</p>
 {% endif %}
 
-{% if reviews %}
-<h1>Reviews</h1>
-<div class="review-list">
-{% for review in reviews %}
-{% include 'Reviews/review.html' %}
-{% endfor %}
-</div>
-{% else %}
-<p>No reviews found.</p>
-{% endif %}
-
-{% if users %}
 <h1>Users</h1>
+{% if users %}
 <div class="user-list">
+    {% if users|length > 19 %}
+    {% for i in range(1,10) %}
+    {% set user = users[i] %}
+    {% include 'Users/user.html' %}
+    {% endfor %}
+    {% else %}
 {% for user in users %}
 {% include 'Users/user.html' %}
 {% endfor %}
+{% endif %}
 </div>
+<a href="{{ url_for('auth.all_users')}}" class="all">Meet all users</a>
 {% else %}
 <p>No users found.</p>
 {% endif %}

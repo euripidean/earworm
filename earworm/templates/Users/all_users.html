@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'Admin/toolbar.html' %}
+{% include 'Admin/search.html' %}
+<h1>All Users</h1>
+<div class="user-list">
+    {% for user in users %}
+    {% include 'Users/user.html' %}
+    {% endfor %}
+</div>
+{% endblock %}

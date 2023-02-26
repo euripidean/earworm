@@ -6,13 +6,18 @@ from earworm.extensions import app, db, bcrypt
 
 from earworm.models import User
 
-class SignUpForm(FlaskForm):
+class SignUpFormMixin(FlaskForm):
     """Sign up form."""
-    username = StringField('Username', validators=[InputRequired(), Length(min=3, max=50)])
     password = PasswordField('Password', validators=[InputRequired()])
     avatar_url = StringField('Avatar URL', validators=[optional(), url()])
     bio = StringField('Bio', validators=[optional(), Length(max=255)])
     public = BooleanField('Would you like your profile to be public?')
+    
+
+        
+class SignUpForm(SignUpFormMixin):
+    """Sign up form."""
+    username = StringField('Username', validators=[InputRequired(), Length(min=3, max=50)])
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):
@@ -20,6 +25,11 @@ class SignUpForm(FlaskForm):
         user = User.query.filter_by(username=username.data).first()
         if user:
             raise ValidationError('Username already exists. Please choose a different one.')
+        
+class UserUpdateForm(SignUpFormMixin):
+    """User update form."""
+    submit = SubmitField('Update')
+
 
 class LoginForm(FlaskForm):
     """Login form."""

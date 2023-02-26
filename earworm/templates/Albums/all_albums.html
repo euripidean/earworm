@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'Admin/toolbar.html' %}
+{% include 'Admin/search.html' %}
+<h1>All Albums</h1>
+<div class="album-list">
+    {% for album in albums %}
+    <ul class="albums">
+        {% include 'Artists/artist.html' %}
+    </ul>
+    </div>
+    {% endfor %}
+{% endblock %}

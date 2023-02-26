@@ -25,6 +25,7 @@
             <ul>
                 {% if current_user.is_authenticated %}
                 <li><a href="/all_earworms">Browse</a></li>
+                <li><a href="/profile/{{current_user.id}}">Profile</a></li>
                 <li><a href="/logout">Log Out</a></li>
                 {% else %}
                 <li><a href="/all_earworms">Browse</a></li>

@@ -17,7 +17,7 @@
 <div class="review-data">
 <p class="user-tag">Contributed by <span style="color:#f0941c">
     {% if user.public %}
-        <a href="{{ url_for('main.profile', user_id=user.id) }}">{{ user.username }}</a>
+        <a href="{{ url_for('auth.profile', user_id=user.id) }}">{{ user.username }}</a>
     {% else %}
         Anonymous
     {% endif %}</span></p>

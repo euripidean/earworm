@@ -7,6 +7,7 @@ from earworm.extensions import app, db
 from earworm.models import Artist, Album, Review, User
 from earworm.main.forms import ArtistForm, ArtistUpdateForm, AlbumForm, AlbumUpdateForm, ReviewUpdateForm, ReviewForm
 
+
 ##########################################
 #           Routes                       #
 ##########################################
@@ -27,11 +28,21 @@ def search():
 @main.route('/search_results/<search_term>', methods=['GET', 'POST'])
 def search_results(search_term):
     search_term = search_term
+    albums = Album.query.all()
+    artists = Artist.query.all()
     artist_results = Artist.query.filter(Artist.name.ilike(f'%{search_term}%')).all()
     album_results = Album.query.filter(Album.title.ilike(f'%{search_term}%')).all()
     review_results = Review.query.filter(Review.content.ilike(f'%{search_term}%')).all()
     user_results = User.query.filter(User.username.ilike(f'%{search_term}%')).all()
-    return render_template('Admin/search_results.html', artist_results=artist_results, album_results=album_results, review_results=review_results, user_results=user_results, search_term=search_term)
+    return render_template(
+        'Admin/search_results.html', 
+        artist_results=artist_results, 
+        album_results=album_results, 
+        review_results=review_results, 
+        user_results=user_results, 
+        search_term=search_term, 
+        artists=artists,
+        albums=albums)
 
 @main.route('/about')
 def about():
@@ -74,6 +85,11 @@ def artist_detail(artist_id):
     listeners = [user for user in artist.listeners]
     return render_template('Artists/artist_detail.html', artist=artist, albums=albums, listener_count=listener_count, users=listeners)
 
+@main.route('/all_artists', methods=['GET', 'POST'])
+def all_artists():
+    all_artists = Artist.query.order_by(Artist.name).all()
+    return render_template('Artists/all_artists.html', artists=all_artists)
+
 @main.route('/edit/artist/<artist_id>', methods=['GET','POST'])
 @login_required
 def edit_artist(artist_id):
@@ -112,13 +128,20 @@ def add_album():
         return redirect(url_for('main.album_detail', album_id=new_album.id))
     return render_template('Albums/add_album.html', form=form)
 
+@main.route('/all_albums', methods=['GET', 'POST'])
+def all_albums():
+    all_albums = Album.query.order_by(Album.title).all()
+    return render_template('Albums/all_albums.html', albums=all_albums)
+
 @main.route('/album/<album_id>', methods=['GET', 'POST'])
 def album_detail(album_id):
     album = Album.query.get(album_id)
     artist = Artist.query.get(album.artist)
     reviews = Review.query.filter_by(reviewed_album=album.id).order_by(Review.date_created.desc()).all()
     # if any review is by current user return true
-    review_exists = any(review.created_by == current_user.id for review in reviews)
+    review = None
+    if reviews:
+        review_exists = any(review.created_by == current_user.id for review in reviews)
     if review_exists:
         review = Review.query.filter_by(created_by=current_user.id, reviewed_album=album.id).first()
     print(review_exists)
@@ -200,28 +223,6 @@ def edit_review(review_id):
         return redirect(url_for('main.review_detail', review_id=review.id))
     review = Review.query.get(review_id)
     return render_template('Reviews/review_edit.html', review=review, form=form, edit=True)
-
-@main.route('/profile/<user_id>', methods=['GET', 'POST'])
-def profile(user_id):
-    user = User.query.get(user_id)
-    reviews = Review.query.filter_by(created_by=user.id).order_by(Review.date_created.desc()).all()
-    return render_template('Users/profile.html', user=user, reviews=reviews)
-
-# @main.route('/edit/profile/<user_id>', methods=['GET','POST'])
-# @login_required
-# def edit_profile(user_id):
-#     user = User.query.get(user_id)
-#     form = UserUpdateForm(obj=user)
-
-#     if form.validate_on_submit():
-#         user.username = form.username.data
-#         user.email = form.email.data
-#         user.bio = form.bio.data
-#         db.session.commit()
-#         flash('Profile updated successfully!')
-#         return redirect(url_for('main.profile', user_id=user.id))
-#     user = User.query.get(user_id)
-#     return render_template('Users/profile_edit.html', user=user, form=form)
 
 @main.route('/follow/<artist_id>', methods=['GET', 'POST'])
 @login_required

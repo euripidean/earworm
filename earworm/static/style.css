@@ -363,10 +363,14 @@ legend {
     margin: 0;
 }
 
-.record-name {
+.record-name, .profile-name {
     font-size: 1.5em;
     font-weight: 100;
     margin: 0;
+}
+
+.profile-name {
+    color: #e8e4db;
 }
 
 .actions {
@@ -507,6 +511,11 @@ legend {
     padding: 2%;
 }
 
+.user-link {
+    border: none;
+    padding: 2%;
+}
+
 .listener-count {
     position: absolute;
     right: 130px;
@@ -518,6 +527,12 @@ legend {
 .release-date {
     font-size: 0.4em;
     text-transform: uppercase;
+}
+
+.all {
+    color: #e8e4db;
+    font-size: 0.75em;
+    font-weight: 100;
 }
 
 
