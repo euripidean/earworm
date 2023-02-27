@@ -3,11 +3,13 @@
 {% include 'Admin/toolbar.html' %}
 {% include 'Admin/search.html' %}
 <h1>All Albums</h1>
-<div class="album-list">
-    {% for album in albums %}
+{% if albums|length == 0 %}
+        <p>There are no albums currently in Earworm.</p>   
+    {% else %}
     <ul class="albums">
-        {% include 'Artists/artist.html' %}
+        {% for album in albums %}
+        {% include 'Albums/album.html' %}
+        {% endfor %}
     </ul>
-    </div>
-    {% endfor %}
+    {% endif %}
 {% endblock %}

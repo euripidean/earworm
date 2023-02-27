@@ -66,3 +66,17 @@ def logout():
 def all_users():
     users = User.query.all()
     return render_template('Users/all_users.html', users=users)
+
+
+@auth.route('/delete/<user_id>')
+@login_required
+def delete_profile(user_id):
+    user = User.query.get(user_id)
+    reviews = Review.query.filter_by(created_by=user.id).all()
+    for review in reviews:
+        review.created_by = None
+    db.session.delete(user)
+    db.session.commit()
+    return redirect(url_for('main.homepage'))
+
+

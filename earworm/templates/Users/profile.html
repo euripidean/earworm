@@ -5,8 +5,19 @@
 {% if user == current_user %}
 <div class="actions">
     <form action="{{ url_for('auth.edit_profile', user_id=user.id) }}" method="post">
-        <input type="submit" class="primary smaller" value="Edit Profile">
+        <button class="primary smaller">Edit Profile</button>
     </form>
+    <form>
+        <button class="danger smaller" id="delete-profile">Delete Profile</button>
+    </form>
+</div>
+<div id="delete" class="delete-profile-check hidden">
+    <p>Are you sure you want to delete your profile?</p>
+    <p>This action is permanent and will also delete all your reviews.</p>
+    <form action="{{ url_for('auth.delete_profile', user_id=user.id) }}" method="post">
+        <button class="danger smaller" type="submit">Yes</button>
+    </form>
+    <button class="secondary smaller" id="cancel-delete">No</button>
 </div>
 {% endif %}
 {% include 'Users/user.html' %}

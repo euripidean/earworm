@@ -15,6 +15,22 @@ function updateStarRating(evt){
 }
 }
 
+window.onload = function(){
+    document.querySelector('#delete-profile').addEventListener('click', deleteProfileAlert, false);
+    document.querySelector('#cancel-delete').addEventListener('click', cancelDelete, false);
+    function deleteProfileAlert(e){
+        e.preventDefault();
+        const deletion = document.getElementById('delete')
+        deletion.classList.remove('hidden');
+    }
+
+    function cancelDelete(e){
+        e.preventDefault();
+        const deletion = document.getElementById('delete')
+        deletion.classList.add('hidden');
+    }
+}
+
 
 
 

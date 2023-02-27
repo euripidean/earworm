@@ -10,7 +10,8 @@
             </form>
     {% else %}
             <form action="{{ url_for('main.create_review', album_id=album.id) }}">
-                <button class="secondary smaller" type="submit">Add Review</button>
+                <button class="primary smaller" type="submit">Add Review</button>
+                <input type="hidden" name="album_id" value="{{ album.id }}">
             </form> 
     {% endif %}
         <form action="{{ url_for('main.edit_album', album_id=album.id) }}">

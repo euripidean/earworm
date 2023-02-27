@@ -131,7 +131,8 @@ def add_album():
 @main.route('/all_albums', methods=['GET', 'POST'])
 def all_albums():
     all_albums = Album.query.order_by(Album.title).all()
-    return render_template('Albums/all_albums.html', albums=all_albums)
+    artist = [Artist.query.get(album.artist) for album in all_albums]
+    return render_template('Albums/all_albums.html', albums=all_albums, artist=artist)
 
 @main.route('/album/<album_id>', methods=['GET', 'POST'])
 def album_detail(album_id):
@@ -140,11 +141,11 @@ def album_detail(album_id):
     reviews = Review.query.filter_by(reviewed_album=album.id).order_by(Review.date_created.desc()).all()
     # if any review is by current user return true
     review = None
+    review_exists = False
     if reviews:
         review_exists = any(review.created_by == current_user.id for review in reviews)
     if review_exists:
         review = Review.query.filter_by(created_by=current_user.id, reviewed_album=album.id).first()
-    print(review_exists)
     return render_template('Albums/album_detail.html', album=album, artist=artist, reviews=reviews, review_exists=review_exists, review=review)
 
 @main.route('/edit/album/<album_id>', methods=['GET','POST'])
@@ -174,6 +175,7 @@ def edit_album(album_id):
 def create_review():
     album = request.args.get('album_id')
     album = Album.query.get(album)
+    print(album)
     rating = request.form.get('rating')
  
     form = ReviewForm()
