@@ -1,6 +1,9 @@
 window.onload = function(){
-
-document.querySelector('.rating-wrapper').addEventListener('click', updateStarRating, false);
+const rating = document.querySelector('.rating-wrapper');
+if (rating) {
+    document.querySelector('.rating-wrapper').addEventListener('click', updateStarRating, false);
+}
+    
 function updateStarRating(evt){
     for(i=0; i < parseInt(evt.target.id); i++){
         const stars = document.querySelectorAll('.rating-wrapper img');
@@ -13,23 +16,25 @@ function updateStarRating(evt){
     }
     document.querySelector('#rating').value = evt.target.id;
 }
+
+document.querySelector('#delete-profile').addEventListener('click', deleteProfileAlert, false);
+document.querySelector('#cancel-delete').addEventListener('click', cancelDelete, false);
+function deleteProfileAlert(e){
+    e.preventDefault();
+    const deletion = document.getElementById('delete')
+    deletion.classList.remove('hidden');
 }
 
-window.onload = function(){
-    document.querySelector('#delete-profile').addEventListener('click', deleteProfileAlert, false);
-    document.querySelector('#cancel-delete').addEventListener('click', cancelDelete, false);
-    function deleteProfileAlert(e){
-        e.preventDefault();
-        const deletion = document.getElementById('delete')
-        deletion.classList.remove('hidden');
-    }
-
-    function cancelDelete(e){
-        e.preventDefault();
-        const deletion = document.getElementById('delete')
-        deletion.classList.add('hidden');
-    }
+function cancelDelete(e){
+    e.preventDefault();
+    const deletion = document.getElementById('delete')
+    deletion.classList.add('hidden');
 }
+}
+
+
+
+
 
 
 

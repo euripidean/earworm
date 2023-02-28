@@ -30,7 +30,10 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         login_user(user, remember=True)
         next = request.args.get('next')
-        return redirect(next or url_for('main.all_earworms'))
+        if next:
+            return redirect(next)
+        else:
+            return redirect(url_for('main.all_earworms'))
     return render_template('Users/login.html', form=form)
 
 @auth.route('/profile/<user_id>', methods=['GET', 'POST'])
@@ -68,13 +71,13 @@ def all_users():
     return render_template('Users/all_users.html', users=users)
 
 
-@auth.route('/delete/<user_id>')
+@auth.route('/delete/<user_id>', methods=['GET', 'POST'])
 @login_required
 def delete_profile(user_id):
     user = User.query.get(user_id)
     reviews = Review.query.filter_by(created_by=user.id).all()
     for review in reviews:
-        review.created_by = None
+        db.session.delete(review)
     db.session.delete(user)
     db.session.commit()
     return redirect(url_for('main.homepage'))

@@ -34,8 +34,8 @@ class User(UserMixin, db.Model):
     avatar_url = db.Column(db.String(255), nullable=True)
     bio = db.Column(db.String(255), nullable=True)
     public = db.Column(db.Boolean, nullable=False, default=True)
-    liked_artists = db.relationship('Artist', secondary="artist_listeners", backref='user', lazy=True)
-    liked_users = db.relationship('User', secondary="user_followers", backref='user', lazy=True)
+    liked_artists = db.relationship('Artist', secondary="artist_listeners", backref='user', lazy=True, cascade="all, delete")
+
 
 class Artist(db.Model):
     """Artist model."""
@@ -44,7 +44,7 @@ class Artist(db.Model):
     name = db.Column(db.String(255), nullable=False)
     bio = db.Column(db.String(9000), nullable=True)
     photo_url = db.Column(URLType, nullable=True)
-    listeners = db.relationship('User', secondary="artist_listeners" , backref='artist', lazy=True)
+    listeners = db.relationship('User', secondary="artist_listeners" , backref='artist', lazy=True, cascade="all, delete")
 
     def __repr__(self):
         return f'Artist({self.name})'
@@ -81,14 +81,4 @@ class Review(db.Model):
 user_artist_table = db.Table('artist_listeners',
     db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
     db.Column('artist_id', db.Integer, db.ForeignKey('artists.id'), primary_key=True)
-)
-
-artist_album_table = db.Table('artist_albums',
-    db.Column('artist_id', db.Integer, db.ForeignKey('artists.id'), primary_key=True),
-    db.Column('album_id', db.Integer, db.ForeignKey('albums.id'), primary_key=True)
-)
-
-user_followers_table = db.Table('user_followers',
-    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
-    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True)
 )
