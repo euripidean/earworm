@@ -45,6 +45,7 @@ class Artist(db.Model):
     bio = db.Column(db.String(9000), nullable=True)
     photo_url = db.Column(URLType, nullable=True)
     listeners = db.relationship('User', secondary="artist_listeners" , backref='artist', lazy=True, cascade="all, delete")
+    released_albums = db.relationship('Album', secondary="artist_albums", backref='album', lazy=True, cascade="all, delete")
 
     def __repr__(self):
         return f'Artist({self.name})'
@@ -59,6 +60,7 @@ class Album(db.Model):
     genre = db.Column(db.Enum(Genre), nullable=False)
     artist = db.Column(db.Integer, db.ForeignKey('artists.id'), nullable=False)
     date_added = db.Column(db.Date, nullable=False)
+    recorded_by = db.relationship('Artist', secondary="artist_albums", backref='artist', lazy=True, cascade="all, delete")
 
     def __repr__(self):
         return f'Album({self.title})'
@@ -81,4 +83,9 @@ class Review(db.Model):
 user_artist_table = db.Table('artist_listeners',
     db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
     db.Column('artist_id', db.Integer, db.ForeignKey('artists.id'), primary_key=True)
+)
+
+artist_albums_table = db.Table('artist_albums',
+    db.Column('artist_id', db.Integer, db.ForeignKey('artists.id'), primary_key=True),
+    db.Column('album_id', db.Integer, db.ForeignKey('albums.id'), primary_key=True)
 )

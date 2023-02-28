@@ -41,8 +41,22 @@
         <form action="{{ url_for('main.edit_review', review_id=review.id) }}">
             <button class="secondary smaller" type="submit">Edit Review</button>
         </form>
+        <form>
+            <button class="danger smaller" id="delete-review">Delete Review</button>
+        </form>
         {% endif %}
         </div>
+        <div id="delete" class="delete-profile-check hidden">
+            <p>Are you sure you want to delete your review?</p>
+            <p>This action is permanent. Once it's gone, it's gone!</p>
+            <div class="actions">
+            <form action="{{ url_for('main.delete_review', review_id=review.id) }}" method="post">
+                <button class="danger smaller" type="submit">Yes</button>
+            </form>
+            <button class="secondary smaller" id="cancel-delete">No</button>
+        </div>
+        </div>
+    </div>
     <a href="{{ url_for('main.album_detail', album_id=album.id) }}">
     <div class="album-detail-image" style="background-image:url({{album.cover_url}});">
     </div>

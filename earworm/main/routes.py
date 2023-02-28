@@ -16,10 +16,14 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def homepage():
+    """Renders splash page for log in or sign up."""
+    if current_user.is_authenticated:
+        return redirect(url_for('main.all_earworms'))
     return render_template('Admin/home.html')
 
 @main.route('/search', methods=['GET', 'POST'])
 def search():
+    """Searches for a term in the database."""
     search_term = request.args.get('query')
     if not search_term:
         return redirect(url_for('main.all_earworms'))
@@ -27,6 +31,7 @@ def search():
 
 @main.route('/search_results/<search_term>', methods=['GET', 'POST'])
 def search_results(search_term):
+    """Renders search results page."""
     search_term = search_term
     albums = Album.query.all()
     artists = Artist.query.all()
@@ -46,14 +51,17 @@ def search_results(search_term):
 
 @main.route('/about')
 def about():
+    """Renders about page."""
     return render_template('Admin/about.html')
 
 @main.route('/contact')
 def contact():
+    """Renders contact page."""
     return render_template('Admin/contact.html')
 
 @main.route('/all_earworms', methods=['GET', 'POST'])
 def all_earworms():
+    """Renders all earworms page. Information is limited to prevent clutter."""
     all_reviews = Review.query.order_by(Review.date_created.desc()).all()
     all_artists = Artist.query.order_by(Artist.name).all()
     all_albums = Album.query.order_by(Album.title).all()
@@ -63,6 +71,7 @@ def all_earworms():
 @main.route('/add_artist', methods=['GET', 'POST'])
 @login_required
 def add_artist():
+    """Renders add artist page and adds artist to database."""
     form = ArtistForm()
     if form.validate_on_submit():
         new_artist = Artist(
@@ -79,6 +88,7 @@ def add_artist():
 
 @main.route('/artist/<artist_id>', methods=['GET', 'POST'])
 def artist_detail(artist_id):
+    """Renders artist detail page."""
     artist = Artist.query.get(artist_id)
     albums = Album.query.filter_by(artist=artist.id).order_by(Album.release_date.desc()).all()
     listener_count = len(artist.listeners)
@@ -87,12 +97,14 @@ def artist_detail(artist_id):
 
 @main.route('/all_artists', methods=['GET', 'POST'])
 def all_artists():
+    """Renders all artists page with artists listed in alphabetical order."""
     all_artists = Artist.query.order_by(Artist.name).all()
     return render_template('Artists/all_artists.html', artists=all_artists)
 
 @main.route('/edit/artist/<artist_id>', methods=['GET','POST'])
 @login_required
 def edit_artist(artist_id):
+    """Renders edit artist page and updates artist in database."""
     artist = Artist.query.get(artist_id)
     form = ArtistUpdateForm(obj=artist)
     if form.validate_on_submit():
@@ -108,6 +120,7 @@ def edit_artist(artist_id):
 @main.route('/add_album', methods=['GET', 'POST'])
 @login_required
 def add_album():
+    """Renders add album page and adds album to database."""
     artist = request.args.get('artist_id')
     artist = Artist.query.get(artist)
     form = AlbumForm()
@@ -130,12 +143,15 @@ def add_album():
 
 @main.route('/all_albums', methods=['GET', 'POST'])
 def all_albums():
+    """Renders all albums page with albums listed in alphabetical order."""
     all_albums = Album.query.order_by(Album.title).all()
     artist = [Artist.query.get(album.artist) for album in all_albums]
     return render_template('Albums/all_albums.html', albums=all_albums, artist=artist)
 
 @main.route('/album/<album_id>', methods=['GET', 'POST'])
 def album_detail(album_id):
+    """Renders album detail page. If current user has reviewed album, 
+    removes add review button and replaces it with edit review."""
     album = Album.query.get(album_id)
     artist = Artist.query.get(album.artist)
     reviews = Review.query.filter_by(reviewed_album=album.id).order_by(Review.date_created.desc()).all()
@@ -151,6 +167,7 @@ def album_detail(album_id):
 @main.route('/edit/album/<album_id>', methods=['GET','POST'])
 @login_required
 def edit_album(album_id):
+    """Renders edit album page and updates album in database."""
     album = Album.query.get(album_id)
     genre = album.genre
     artist = Artist.query.get(album.artist)
@@ -173,9 +190,9 @@ def edit_album(album_id):
 @main.route('/create_review', methods=['GET', 'POST'])
 @login_required
 def create_review():
+    """Renders create review page and adds review to database."""
     album = request.args.get('album_id')
     album = Album.query.get(album)
-    print(album)
     rating = request.form.get('rating')
  
     form = ReviewForm()
@@ -198,6 +215,8 @@ def create_review():
 
 @main.route('/review/<review_id>', methods=['GET', 'POST'])
 def review_detail(review_id):
+    """Renders review detail page. If current user is the author of the review,
+    shows edit review and delete button."""
     review = Review.query.get(review_id)
     form = ReviewForm(obj=review)
     album = Album.query.get(review.reviewed_album)
@@ -208,6 +227,7 @@ def review_detail(review_id):
 @main.route('/edit/review/<review_id>', methods=['GET','POST'])
 @login_required
 def edit_review(review_id):
+    """Renders edit review page and updates review in database."""
     rating = request.form.get('rating')
     review = Review.query.get(review_id)
     album = Album.query.get(review.reviewed_album)
@@ -226,9 +246,21 @@ def edit_review(review_id):
     review = Review.query.get(review_id)
     return render_template('Reviews/review_edit.html', review=review, form=form, edit=True)
 
+@main.route('/delete/review/<review_id>', methods=['GET', 'POST'])
+@login_required
+def delete_review(review_id):
+    """Deletes review from database."""
+    review = Review.query.get(review_id)
+    artist = Artist.query.get(review.reviewed_album)
+    db.session.delete(review)
+    db.session.commit()
+    flash('Review deleted successfully!')
+    return redirect(url_for('main.artist_detail', artist_id=artist.id))
+
 @main.route('/follow/<artist_id>', methods=['GET', 'POST'])
 @login_required
 def like_artist(artist_id):
+    """Adds artist to current user's liked artists list."""
     artist = Artist.query.get(artist_id)
     if artist not in current_user.liked_artists:
         current_user.liked_artists.append(artist)
@@ -241,6 +273,7 @@ def like_artist(artist_id):
 @main.route('/unfollow/<artist_id>', methods=['GET', 'POST'])
 @login_required
 def unlike_artist(artist_id):
+    """Removes artist from current user's liked artists list."""
     artist = Artist.query.get(artist_id)
     if artist in current_user.liked_artists:
         current_user.liked_artists.remove(artist)
