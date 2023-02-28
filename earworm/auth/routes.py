@@ -75,6 +75,7 @@ def all_users():
 @login_required
 def delete_profile(user_id):
     user = User.query.get(user_id)
+    user.liked_artists = []
     reviews = Review.query.filter_by(created_by=user.id).all()
     for review in reviews:
         db.session.delete(review)
