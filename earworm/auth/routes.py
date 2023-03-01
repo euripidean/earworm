@@ -55,16 +55,20 @@ def profile(user_id):
 @login_required
 def edit_profile(user_id):
     """Edit a user's profile."""
-    user = User.query.get(user_id)
-    form = UserUpdateForm(obj=user)
-    if form.validate_on_submit():
-        user.username = form.username.data
-        user.avatar_url = form.avatar_url.data
-        user.bio = form.bio.data
-        user.public = form.public.data
-        db.session.commit()
-        flash('Profile updated successfully!', 'success')
-        return redirect(url_for('auth.profile', user_id=user.id))
+    if current_user.id != int(user_id):
+        flash('You do not have permission to edit this profile.', 'danger')
+        return redirect(url_for('main.all_earworms'))
+    else:
+        user = User.query.get(user_id)
+        form = UserUpdateForm(obj=user)
+        if form.validate_on_submit():
+            user.username = form.username.data
+            user.avatar_url = form.avatar_url.data
+            user.bio = form.bio.data
+            user.public = form.public.data
+            db.session.commit()
+            flash('Profile updated successfully!', 'success')
+            return redirect(url_for('auth.profile', user_id=user.id))
     return render_template('Users/edit_profile.html', form=form, user=user)
 
 @auth.route('/logout')
