@@ -21,8 +21,10 @@
 {% endif %}
 {% if user_results %}
 <h2>Users</h2>
+<div class="user-list"></div>
 {% for user in user_results %}
-<a href="{{ url_for('main.user_detail', user_id=user.id) }}">{{ user.username }}</a>
+{% include 'Users/user.html' %}
 {% endfor %}
+</div>
 {% endif %}
 {% endblock %}
