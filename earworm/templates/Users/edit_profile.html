@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action="/signup" method="POST" class="users">
-    {{ form.csrf_token }}
+<form action="/edit_profile/{{user.id}}" method="POST">
     <fieldset>
-        <legend>Edit your profile</legend>
+        <legend>Edit Profile</legend>
 {% include 'Users/signup_form.html' %}
 </form>
 {% endblock %}

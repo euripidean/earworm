@@ -24,16 +24,10 @@
     {% if reviews|length == 0 %}
         <p>There are no reviews currently in Earworm for this album.</p>   
     {% else %}
-   <ul class="reviews">
-        {% for review in reviews %}
-            <li>
-                <a href="{{ url_for('main.review_detail', review_id=review.id) }}">
-                    <h3>{{ review.summary }}</h3>
-                    <p>Some review text but truncated.</p>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+    {% for review in reviews %}
+    {% include 'Reviews/review.html' %}
+    <p class="review-tag">contributed by: <strong>{{ review.written_by.username }}</strong> | {{ review.date_created.strftime('%d %b, %Y') }}</p>
+    {% endfor %}
     {% endif %}
 
 {% endblock %}

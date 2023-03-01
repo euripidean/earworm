@@ -158,7 +158,7 @@ def album_detail(album_id):
     # if any review is by current user return true
     review = None
     review_exists = False
-    if reviews:
+    if reviews and current_user.is_authenticated:
         review_exists = any(review.created_by == current_user.id for review in reviews)
     if review_exists:
         review = Review.query.filter_by(created_by=current_user.id, reviewed_album=album.id).first()
@@ -251,7 +251,11 @@ def edit_review(review_id):
 def delete_review(review_id):
     """Deletes review from database."""
     review = Review.query.get(review_id)
-    artist = Artist.query.get(review.reviewed_album)
+    album = Album.query.get(review.reviewed_album)
+    user = User.query.get(review.created_by)
+    artist = Artist.query.get(album.artist)
+    user.reviews_written.remove(review)
+    db.session.commit()
     db.session.delete(review)
     db.session.commit()
     flash('Review deleted successfully!')

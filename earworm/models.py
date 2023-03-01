@@ -35,6 +35,7 @@ class User(UserMixin, db.Model):
     bio = db.Column(db.String(255), nullable=True)
     public = db.Column(db.Boolean, nullable=False, default=True)
     liked_artists = db.relationship('Artist', secondary="artist_listeners", backref='user', lazy=True, cascade="all, delete")
+    reviews_written = db.relationship('Review', backref='user', lazy=True, cascade="all, delete")
 
     def __repr__(self):
         return f'User({self.username})'
@@ -68,7 +69,7 @@ class Album(db.Model):
     genre = db.Column(db.Enum(Genre), nullable=False)
     artist = db.Column(db.Integer, db.ForeignKey('artists.id'), nullable=False)
     date_added = db.Column(db.Date, nullable=False)
-
+   
     def __repr__(self):
         return f'Album({self.title})'
     
@@ -84,8 +85,9 @@ class Review(db.Model):
     content = db.Column(db.Text, nullable=False)
     date_created = db.Column(db.Date, nullable=False)
     date_updated = db.Column(db.Date, nullable=True)
-    created_by = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
+    created_by = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     reviewed_album = db.Column(db.Integer, db.ForeignKey('albums.id'), nullable=False)
+    written_by = db.relationship('User', backref='review', lazy=True, cascade="all, delete")
 
     def __repr__(self):
         return f'Review({self.summary})'
@@ -98,7 +100,7 @@ user_artist_table = db.Table('artist_listeners',
     db.Column('artist_id', db.Integer, db.ForeignKey('artists.id'), primary_key=True)
 )
 
-artist_albums_table = db.Table('artist_albums',
-    db.Column('artist_id', db.Integer, db.ForeignKey('artists.id'), primary_key=True),
-    db.Column('album_id', db.Integer, db.ForeignKey('albums.id'), primary_key=True)
+user_review_table = db.Table('user_reviews',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+    db.Column('review_id', db.Integer, db.ForeignKey('reviews.id'), primary_key=True)
 )

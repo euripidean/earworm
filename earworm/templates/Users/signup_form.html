@@ -1,28 +1,28 @@
 {% if form.errors %}
-            <ul class="errorlist">
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            {% endfor %}
-            </ul>
+<ul class="errorlist">
+    {% for field in form %}
+        {% for error in field.errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    {% endfor %}
+    </ul>
         {% endif %}
+        {{ form.csrf_token }}
+        {{ form.username.label}}
+        {{ form.username }}
 
-        {{ form.username.label (class_="label")}}
-        {{ form.username (class_="input")}}
 
+        {{ form.password.label }}
+        {{ form.password }}
 
-        {{ form.password.label (class_="label")}}
-        {{ form.password (class_="input")}}
-
-        {{ form.bio.label (class_="label")}}
+        {{ form.bio.label }}
         {{ form.bio (cols="35", rows="5", placeholder="Tell us about yourself.")}}
         
 
-        {{ form.avatar_url.label (class_="label")}}
+        {{ form.avatar_url.label }}
         {{ form.avatar_url (class_="url", placeholder="http://example.com/image.jpg")}}
 
-        {{ form.public.label (class_="label")}}
-        {{ form.public (class_="checkbox")}}
+        {{ form.public.label }}
+        {{ form.public }}
 
-        {{ form.submit (class_="primary")}}
+        {{ form.submit }}

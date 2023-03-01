@@ -3,7 +3,11 @@
 </div>
 <div class="artist-text">
 <h5><a href="{{ url_for('main.artist_detail', artist_id=artist.id) }}">{{ artist.name }}</a></h5>
-<p> {{artist.bio }}</p>
+{% if artist.bio| length > 255 %}
+<p>{{ artist.bio[:255] }}...</p>
+{% else %}
+<p>{{ artist.bio }}</p>
+{% endif %}
 <a class="more" href="{{ url_for('main.artist_detail', artist_id=artist.id) }}">View Artist</a>
 </div>
 </div>

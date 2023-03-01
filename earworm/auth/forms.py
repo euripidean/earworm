@@ -1,14 +1,14 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, SelectField, SubmitField, FloatField, PasswordField, BooleanField
-from wtforms.ext.sqlalchemy.fields import QuerySelectField
-from wtforms.validators import InputRequired, Length, url, ValidationError, optional
-from earworm.extensions import app, db, bcrypt
+from wtforms import StringField, SubmitField, PasswordField, BooleanField
+from wtforms.validators import InputRequired, Length, url, ValidationError, optional, DataRequired
+from earworm.extensions import bcrypt
 
 from earworm.models import User
 
 class SignUpFormMixin(FlaskForm):
     """Sign up form."""
-    password = PasswordField('Password', validators=[InputRequired()])
+    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=50)])
+    password = PasswordField('Password', validators=[DataRequired()])
     avatar_url = StringField('Avatar URL', validators=[optional(), url()])
     bio = StringField('Bio', validators=[optional(), Length(max=255)])
     public = BooleanField('Would you like your profile to be public?')
@@ -17,7 +17,6 @@ class SignUpFormMixin(FlaskForm):
         
 class SignUpForm(SignUpFormMixin):
     """Sign up form."""
-    username = StringField('Username', validators=[InputRequired(), Length(min=3, max=50)])
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):
@@ -27,7 +26,8 @@ class SignUpForm(SignUpFormMixin):
             raise ValidationError('Username already exists. Please choose a different one.')
         
 class UserUpdateForm(SignUpFormMixin):
-    """User update form."""
+    """User update form."""    
+    username = StringField('Username', render_kw={"readonly": True})
     submit = SubmitField('Update')
 
 

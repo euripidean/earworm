@@ -368,6 +368,7 @@ legend {
     flex-basis: 1020px;
     flex: 1;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .artist-info p, .user-info p {
@@ -585,6 +586,20 @@ legend {
 .delete-check > .actions > form > .secondary:hover {
     background-color: #e8e4db;
     color: #070707;
+}
+
+.reviews h3 {
+    color: #f0941c;
+}
+
+.reviews p {
+    color: #e8e4db;
+}
+
+.review-tag {
+    font-size: 0.35em;
+    font-weight: 100;
+    margin: 0;
 }
 
 

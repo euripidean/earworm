@@ -46,22 +46,21 @@ def profile(user_id):
     liked_artists = user.liked_artists
     return render_template('Users/profile.html', user=user, reviews=reviews, liked_artists=liked_artists)
 
-@auth.route('/edit/profile/<user_id>', methods=['GET','POST'])
+@auth.route('/edit_profile/<user_id>', methods=['GET', 'POST'])
 @login_required
 def edit_profile(user_id):
     """Edit a user's profile."""
     user = User.query.get(user_id)
     form = UserUpdateForm(obj=user)
-
     if form.validate_on_submit():
         user.username = form.username.data
-        user.email = form.email.data
+        user.avatar_url = form.avatar_url.data
         user.bio = form.bio.data
+        user.public = form.public.data
         db.session.commit()
-        flash('Profile updated successfully!')
-        return redirect(url_for('main.profile', user_id=user.id))
-    user = User.query.get(user_id)
-    return render_template('Users/profile_edit.html', user=user, form=form)
+        flash('Profile updated successfully!', 'success')
+        return redirect(url_for('auth.profile', user_id=user.id))
+    return render_template('Users/edit_profile.html', form=form, user=user)
 
 @auth.route('/logout')
 @login_required
