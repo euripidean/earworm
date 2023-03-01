@@ -8,7 +8,7 @@
 <h1>Artists</h1>
 <div class="artist-list">
     {% if artists|length > 8 %}
-    {% for i in range(1,10) %}
+    {% for i in range(1,9) %}
     {% set artist = artists[i] %}
     <div class="artist-info">
         {% include 'Artists/artist.html' %}
