@@ -7,7 +7,7 @@
 {% if artists %}
 <h1>Artists</h1>
 <div class="artist-list">
-    {% if artists|length > 8 %}
+    {% if artists|length > 9 %}
     {% for i in range(1,9) %}
     {% set artist = artists[i] %}
     <div class="artist-info">
@@ -30,8 +30,8 @@
 {% if albums %}
 <h1>Trending Albums</h1>
 <ul class="albums">
-    {% if albums|length > 8 %}
-    {% for i in range(1,9) %}
+    {% if albums|length > 9 %}
+    {% for i in range(1,10) %}
     {% set album = albums[i] %}
         <li>
             <a href="{{ url_for('main.album_detail', album_id=album.id) }}">
