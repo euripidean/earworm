@@ -1,7 +1,7 @@
 from sqlalchemy_utils import URLType
 from flask_login import UserMixin
 
-from earworm.extensions import app, db
+from earworm.extensions import db
 from earworm.utils import FormEnum
 
 
