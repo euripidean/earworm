@@ -46,14 +46,14 @@
         </form>
         {% endif %}
         </div>
-        <div id="delete" class="delete-profile-check hidden">
+        <div id="delete" class="delete-check hidden">
             <p>Are you sure you want to delete your review?</p>
             <p>This action is permanent. Once it's gone, it's gone!</p>
             <div class="actions">
             <form action="{{ url_for('main.delete_review', review_id=review.id) }}" method="post">
                 <button class="danger smaller" type="submit">Yes</button>
             </form>
-            <button class="secondary smaller" id="cancel-delete">No</button>
+            <button class="secondary smaller" id="cancel-delete">Cancel</button>
         </div>
         </div>
     </div>

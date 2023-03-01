@@ -11,14 +11,16 @@
         <button class="danger smaller" id="delete-profile">Delete Profile</button>
     </form>
 </div>
-<div id="delete" class="delete-profile-check hidden">
+<div id="delete" class="delete-check hidden">
     <p>Are you sure you want to delete your profile?</p>
     <p>This action is permanent and will also delete all your reviews.</p>
     <div class="actions">
     <form action="{{ url_for('auth.delete_profile', user_id=user.id) }}" method="post">
         <button class="danger smaller" type="submit">Yes</button>
     </form>
-    <button class="secondary smaller" id="cancel-delete">No</button>
+    <form>
+    <button class="secondary smaller" id="cancel-delete">Cancel</button>
+    </form>
     </div>
 </div>
 {% endif %}

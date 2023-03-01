@@ -562,6 +562,31 @@ legend {
     display: none;
 }
 
+.delete-check {
+    background-color: #f0941c;
+    padding: 10px;
+    border-radius: 4px;
+    color: #070707;
+}
+
+.delete-check p {
+    font-weight: bold;
+}
+
+.delete-check > .actions > form > button {
+    width: 100px;
+    border: 2px solid #070707;
+}
+
+.delete-check > .actions > form > .secondary {
+    background-color: #070707;
+}
+
+.delete-check > .actions > form > .secondary:hover {
+    background-color: #e8e4db;
+    color: #070707;
+}
+
 
 
 
