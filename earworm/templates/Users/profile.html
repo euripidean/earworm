@@ -25,6 +25,25 @@
 </div>
 {% endif %}
 {% include 'Users/user.html' %}
-{{ user.bio }}
+{% if user.bio %}
+    <p>{{ user.bio }}</p>
 {% endif %}
+    <h2>Artists I Follow</h2>
+    {% if user.liked_artists %}
+        {% for artist in user.liked_artists %}
+            {% include 'Artists/artist.html' %}
+        {% endfor %}
+    {% else %}
+        <p>Not following any artists yet.</p>
+    {% endif %}
+    <h2>Reviews</h2>
+    {% if user.reviews_written %}
+        {% for review in user.reviews_written %}
+        <h3>{{ review.album.title }} | {{ review.album.artist.name }}</h3>
+            {% include 'Reviews/review.html' %}
+        {% endfor %}
+    {% else %}
+        <p>No reviews yet.</p>
+    {% endif %}
+{% endif %} 
 {% endblock %}

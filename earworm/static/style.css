@@ -590,10 +590,21 @@ legend {
 
 .reviews h3 {
     color: #f0941c;
+    margin-bottom: 0;
 }
 
 .reviews p {
     color: #e8e4db;
+}
+
+.reviews a {
+    border: none;
+}
+
+
+.reviews img {
+    margin-top: 0;
+    text-decoration: none;
 }
 
 .review-tag {
