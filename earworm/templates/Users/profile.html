@@ -25,8 +25,10 @@
 </div>
 {% endif %}
 {% include 'Users/user.html' %}
-{% if user.bio %}
+{% if user.bio|length > 0 %}
     <p>{{ user.bio }}</p>
+{% else %}
+    <p>This user has yet to share their bio.</p>
 {% endif %}
     <h2>Artists I Follow</h2>
     {% if user.liked_artists %}
@@ -39,7 +41,7 @@
     <h2>Reviews</h2>
     {% if user.reviews_written %}
         {% for review in user.reviews_written %}
-        <h3>{{ review.album.title }} | {{ review.album.artist.name }}</h3>
+        <h3>{{ review.album.title }}</h3>
             {% include 'Reviews/review.html' %}
         {% endfor %}
     {% else %}
