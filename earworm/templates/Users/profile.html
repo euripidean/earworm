@@ -25,7 +25,8 @@
 </div>
 {% endif %}
 {% include 'Users/user.html' %}
-{% if user.bio|length > 0 %}
+<h2>About Me</h2>
+{% if user.bio %}
     <p>{{ user.bio }}</p>
 {% else %}
     <p>This user has yet to share their bio.</p>
