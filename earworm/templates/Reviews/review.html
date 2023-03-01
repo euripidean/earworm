@@ -2,6 +2,13 @@
     {% for review in reviews %}
             <a href="{{ url_for('main.review_detail', review_id=review.id) }}">
                 <h3>{{ review.summary }}</h3>
+                {% for i in range(1, 6) %}
+        {% if i <= review.rating %}
+            <img name="rating" id="{{i}}" src="/static/Images/rating_star.png" width="20" class="rating-checked">
+        {% else %}
+            <img name="rating" id="{{i}}" src="/static/Images/rating_star.png" width="20">
+        {% endif %}
+    {% endfor %}
                 {% if review.content|length > 255 %}
                     <p>{{ review.content[:255] }}...</p>
                 {% else %}

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
-from flask_login import login_required, login_user, logout_user
+from flask_login import login_required, login_user, logout_user, current_user
 from earworm.extensions import app, db, bcrypt
 
 from earworm.auth.forms import SignUpForm, LoginForm, UserUpdateForm
@@ -44,9 +44,11 @@ def login():
 def profile(user_id):
     """Show a user's profile page."""
     user = User.query.get(user_id)
-    reviews = Review.query.filter_by(created_by=user.id).order_by(Review.date_created.desc()).all()
+    if user.public == False and user.id != current_user.id:
+        flash('This user has a private profile.', 'danger')
+        return redirect(url_for('main.all_earworms'))
     liked_artists = user.liked_artists
-    return render_template('Users/profile.html', user=user, reviews=reviews, liked_artists=liked_artists)
+    return render_template('Users/profile.html', user=user, reviews=user.reviews_written, liked_artists=liked_artists)
 
 @auth.route('/edit_profile/<user_id>', methods=['GET', 'POST'])
 @login_required
