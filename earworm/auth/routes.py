@@ -87,6 +87,8 @@ def delete_profile(user_id):
     """Delete a user's profile."""
     user = User.query.get(user_id)
     user.liked_artists = []
+    user.liked_reviews = []
+    user.reviews_written = []
     reviews = Review.query.filter_by(created_by=user.id).all()
     for review in reviews:
         db.session.delete(review)

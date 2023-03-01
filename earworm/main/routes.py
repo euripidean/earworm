@@ -261,6 +261,7 @@ def delete_review(review_id):
     flash('Review deleted successfully!')
     return redirect(url_for('main.artist_detail', artist_id=artist.id))
 
+
 @main.route('/follow/<artist_id>', methods=['GET', 'POST'])
 @login_required
 def like_artist(artist_id):
