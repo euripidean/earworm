@@ -34,7 +34,7 @@ class UserUpdateForm(SignUpFormMixin):
 class LoginForm(FlaskForm):
     """Login form."""
     username = StringField('Username', validators=[InputRequired(), Length(min=3, max=50)])
-    password = PasswordField('Password', validators=[InputRequired(), Length(min=10, max=50)])
+    password = PasswordField('Password', validators=[InputRequired()])
     submit = SubmitField('Login')
 
     def validate_username(self, username):
