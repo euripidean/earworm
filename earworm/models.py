@@ -91,7 +91,7 @@ class Review(db.Model):
     created_by = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     reviewed_album = db.Column(db.Integer, db.ForeignKey('albums.id'), nullable=False)
     written_by = db.relationship('User', backref='review', lazy=True, cascade="all, delete")
-    albums = db.relationship('Album', backref='review', lazy=True, cascade="all, delete")
+    albums = db.relationship('Album', backref='review', lazy=True)
 
     def __repr__(self):
         return f'Review({self.summary})'
