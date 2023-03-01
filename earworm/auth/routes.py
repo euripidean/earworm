@@ -16,6 +16,7 @@ def signup():
         user = User(
             username=form.username.data, 
             password=bcrypt.generate_password_hash(form.password.data).decode('utf-8'), 
+            bio=form.bio.data,
             avatar_url=form.avatar_url.data, 
             public=form.public.data)
         db.session.add(user)
