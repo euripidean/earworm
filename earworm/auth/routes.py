@@ -33,8 +33,10 @@ def login():
         login_user(user, remember=True)
         next = request.args.get('next')
         if next:
+            flash('You are now logged in.', 'success')
             return redirect(next)
         else:
+            flash('You are now logged in.', 'success')
             return redirect(url_for('main.all_earworms'))
     return render_template('Users/login.html', form=form)
 
@@ -67,6 +69,7 @@ def edit_profile(user_id):
 def logout():
     """Log out a user."""
     logout_user()
+    flash('Logged out successfully.', 'success')
     return redirect(url_for('main.homepage'))
 
 @auth.route('/all_users')
