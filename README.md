@@ -82,14 +82,19 @@ I enjoyed figuring out Mixins for the forms and partials in the templates to mak
 # Screenshots
 ## Homepage - Splash
 ![image](https://user-images.githubusercontent.com/33559193/222305078-fda33120-6428-4db7-9800-2790369022a3.png)
+
 ## Browse - all
 <img width="2513" alt="Screenshot 2023-03-01 at 5 12 17 PM" src="https://user-images.githubusercontent.com/33559193/222305166-637e1b50-6a28-4023-8b42-249de68680c1.png">
+
 ## Artist detail
 <img width="1558" alt="Screenshot 2023-03-01 at 5 20 08 PM" src="https://user-images.githubusercontent.com/33559193/222306198-993af639-bbe9-4b73-96f6-12db9f367bd7.png">
+
 ## Album detail
 <img width="1483" alt="Screenshot 2023-03-01 at 5 20 51 PM" src="https://user-images.githubusercontent.com/33559193/222306280-03dd8458-61ab-4c6a-b9cc-d92f0b44b9f0.png">
+
 ## Review detail
 <img width="1414" alt="Screenshot 2023-03-01 at 5 22 54 PM" src="https://user-images.githubusercontent.com/33559193/222306570-029974ef-2582-46cf-92a6-45d22f76407b.png">
+
 ## All users
 <img width="1523" alt="Screenshot 2023-03-01 at 5 24 06 PM" src="https://user-images.githubusercontent.com/33559193/222306678-1adac88c-2f80-4372-9efb-57d5f70be028.png">
 
