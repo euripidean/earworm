@@ -1,5 +1,6 @@
-<img width="972" alt="Screenshot 2023-03-01 at 5 30 35 PM" src="https://user-images.githubusercontent.com/33559193/222307586-15b19c71-d9e1-47d2-ae2d-4bdab20fdecd.png">
 # Welcome to Earworm!
+
+<img width="972" alt="Screenshot 2023-03-01 at 5 30 35 PM" src="https://user-images.githubusercontent.com/33559193/222307586-15b19c71-d9e1-47d2-ae2d-4bdab20fdecd.png">
 
 Earworm is a BEW project that enabled me to learn how to build a database, create models, set up authentication and routes, then pass information from my database through to a web application.
 
