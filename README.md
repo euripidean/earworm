@@ -3,10 +3,10 @@
 Earworm is a BEW project that enabled me to learn how to build a database, create models, set up authentication and routes, then pass information from my database through to a web application.
 
 ## How to run
-'''
+```
 pip3 install -r requirements.txt
 python3 app.py
-'''
+```
 
 ## Hosting
 A version of earworm is currently hosted online at https://earworm.onrender.com. This is a free hosting solution so loading may take some time.
@@ -21,7 +21,7 @@ Only logged in users can perform CRUD functions, which was part of the assignmen
 
 The user profile pulls through a list of artists the user has liked, and a summary of reviews they have contributed, along with an avatar (or a site wide avatar if one is not provided) and a short bio.
 
-##Routes created:
+### Routes created:
 AUTH:
 - login
 - signup
